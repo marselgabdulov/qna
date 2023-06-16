@@ -13,11 +13,11 @@ RSpec.describe AnswersController, type: :controller do
 
       it 'saves correct association with the question' do
         action
-        expect(assigns(:exposed_answer).question_id).to eq question.id
+        expect(assigns(:answer).question_id).to eq question.id
       end
 
       it 'redirects to show view' do
-        expect(action).to redirect_to assigns(:exposed_answer)
+        expect(action).to redirect_to assigns(:answer)
       end
     end
 
