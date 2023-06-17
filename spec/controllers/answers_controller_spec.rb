@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
+  let(:user) { create(:user) }
   let(:question) { create :question }
+  before { sign_in(user) }
 
   describe 'POST #create' do
     context 'with valid attributes' do
@@ -17,7 +19,7 @@ RSpec.describe AnswersController, type: :controller do
       end
 
       it 'redirects to show view' do
-        expect(action).to redirect_to assigns(:answer)
+        expect(action).to redirect_to assigns(:question)
       end
     end
 
@@ -28,8 +30,8 @@ RSpec.describe AnswersController, type: :controller do
         expect { action }.to_not change(Answer, :count)
       end
 
-      it 're-renders new view' do
-        expect(action).to render_template :new
+      it 're-renders question#show view' do
+        expect(action).to redirect_to assigns(:question)
       end
     end
   end
