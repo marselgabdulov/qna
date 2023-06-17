@@ -12,11 +12,11 @@ feature 'User can see list of questions', %q{
   scenario 'Authorised user tries to see list of questions' do
     sign_in(user)
     visit questions_path
-    expect(page).to have_content('MyString')
+    expect(page).to have_content('Question Title')
   end
 
   scenario 'Unathorised user tries to see list of questions' do
     visit questions_path
-    expect(page).to have_content('MyString')
+    expect(page).to have_content('Question Title')
   end
 end
