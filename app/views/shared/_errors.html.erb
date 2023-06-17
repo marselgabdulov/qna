@@ -1,7 +1,7 @@
-<% if resourse&.errors.present? %>
-  <b><%= "#{resourse.errors.count} error(s) detected: " %></b>
+<% if resource&.errors.present? %>
+  <b><%= "#{resource.errors.count} error(s) detected: " %></b>
   <ul>
-    <% resourse.errors.full_messages.each do |message| %>
+    <% resource.errors.full_messages.each do |message| %>
       <li><%= message %></li>
     <% end %>
   </ul>
