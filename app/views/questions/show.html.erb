@@ -10,9 +10,10 @@
 <% end %>
 
 <ul>
-  <% @question.answers.each do |a| %>
+  <% @answers.each do |answer| %>
   <li>
-    <%= a.body %>
+    <%= answer.body %>
+    <p><%= link_to 'Delete Answer', answer, method: :delete, confirm: 'Are you sure?' %></p>
   </li>
   <% end %>
 </ul>
