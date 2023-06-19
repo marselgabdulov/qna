@@ -1,5 +1,7 @@
 <h1><%= @question.title %></h1>
 <p><%= @question.body %></p>
+<p><%= link_to 'Delete', @question, method: :delete, confirm: 'Are you sure?' %></p>
+
 <%= render 'shared/errors', resource: @answer %>
 <%= form_with model: [@question, @answer] do |f| %>
   <%= f.label :body, 'Your answer' %>
