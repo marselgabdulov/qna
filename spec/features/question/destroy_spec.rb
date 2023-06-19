@@ -8,14 +8,11 @@ feature 'Author can destroy question', %q{
 
   given(:author) { create(:user) }
   given(:not_author) { create(:user) }
-
-  before do
-    @deleted_question = Question.create(title: 'Some title', body: 'Some body', user_id: author.id)
-  end
+  given(:question_to_delete) { Question.create(title: 'Some title', body: 'Some body', user_id: author.id) }
 
   scenario 'author tries to destroy the question' do
     sign_in(author)
-    visit question_path(@deleted_question)
+    visit question_path(question_to_delete)
     click_on 'Delete'
 
     expect(page).to have_content 'The question was successfully destroyed.'
@@ -23,7 +20,7 @@ feature 'Author can destroy question', %q{
 
   scenario 'not an author to tries destroy the question' do
     sign_in(not_author)
-    visit question_path(@deleted_question)
+    visit question_path(question_to_delete)
     click_on 'Delete'
 
     expect(page).to have_content 'Only an author can do it.'
