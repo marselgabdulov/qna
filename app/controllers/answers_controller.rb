@@ -1,14 +1,28 @@
 class AnswersController < ApplicationController
-  expose :answer
-  expose :question
+  before_action :authenticate_user!
 
   def create
-    @exposed_answer = question.answers.new(answer_params)
+    @question = Question.find(params[:question_id])
+    @answer = @question.answers.new(answer_params)
+    @answer.user = current_user
 
-    if answer.save
-      redirect_to answer_path(answer)
+    if @answer.save
+      redirect_to @question, notice: 'Your answer successfully created.'
     else
-      render :new
+      redirect_to @question, notice: @answer.errors.full_messages
+    end
+  end
+
+  def destroy
+    @answer = Answer.find(params[:id])
+    question = @answer.question
+
+    if current_user.id == @answer.user_id
+      @answer.destroy
+      flash[:notice] = 'The answer was successfully destroyed.'
+      redirect_to question
+    else
+      redirect_to question, notice: 'Only an author can do it.'
     end
   end
 

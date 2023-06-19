@@ -1,11 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe AnswersController, type: :controller do
+  let(:user) { create(:user) }
   let(:question) { create :question }
+  before { sign_in(user) }
 
   describe 'POST #create' do
     context 'with valid attributes' do
-      let(:action) { post :create, params: { answer: attributes_for(:answer), question_id: question } }
+      let(:action) { post :create, params: { answer: attributes_for(:answer), question_id: question, user_id: user } }
 
       it 'saves a new answer in the database' do
         expect { action }.to change(question.answers, :count).by(1)
@@ -13,11 +15,11 @@ RSpec.describe AnswersController, type: :controller do
 
       it 'saves correct association with the question' do
         action
-        expect(assigns(:exposed_answer).question_id).to eq question.id
+        expect(assigns(:answer).question_id).to eq question.id
       end
 
       it 'redirects to show view' do
-        expect(action).to redirect_to assigns(:exposed_answer)
+        expect(action).to redirect_to assigns(:question)
       end
     end
 
@@ -28,8 +30,8 @@ RSpec.describe AnswersController, type: :controller do
         expect { action }.to_not change(Answer, :count)
       end
 
-      it 're-renders new view' do
-        expect(action).to render_template :new
+      it 're-renders question#show view' do
+        expect(action).to redirect_to assigns(:question)
       end
     end
   end

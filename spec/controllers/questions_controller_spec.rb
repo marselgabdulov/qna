@@ -2,8 +2,63 @@ require 'rails_helper'
 
 RSpec.describe QuestionsController, type: :controller do
   let(:question) { create(:question) }
+  let(:user) { create(:user) }
+
+  describe 'GET #index' do
+    let(:questions) { create_list(:question, 3) }
+
+    before { get :index }
+
+
+    it 'populates an array of all questions' do
+      expect(assigns(:questions)).to match_array(questions)
+    end
+
+    it 'renders index view' do
+      expect(response).to render_template :index
+    end
+  end
+
+  describe 'GET #show' do
+    before { get :show, params: { id: question } }
+
+    it 'assigns the requested question to @question' do
+      expect(assigns(:question)).to eq question
+    end
+
+    it 'renders show view' do
+      expect(response).to render_template :show
+    end
+  end
+
+  describe 'GET #new' do
+    before { login(user) }
+    before { get :new }
+
+    it 'assigns the requested question to @question' do
+      expect(assigns(:question)).to be_a_new(Question)
+    end
+
+    it 'renders new view' do
+      expect(response).to render_template :new
+    end
+  end
+
+  describe 'GET #edit' do
+    before { login(user) }
+    before { get :edit, params: { id: question } }
+
+    it 'assigns the requested question to @question' do
+      expect(assigns(:question)).to eq question
+    end
+
+    it 'renders show view' do
+      expect(response).to render_template :edit
+    end
+  end
 
   describe 'POST #create' do
+    before { login(user) }
     context 'with valid attributes' do
       it 'saves a new question in the database' do
         expect { post :create, params: { question: attributes_for(:question) } }.to change(Question, :count).by(1)
@@ -11,7 +66,7 @@ RSpec.describe QuestionsController, type: :controller do
 
       it 'redirects to show view' do
         post :create, params: { question: attributes_for(:question) }
-        expect(response).to redirect_to assigns(:exposed_question)
+        expect(response).to redirect_to assigns(:question)
       end
     end
 
@@ -28,18 +83,19 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe 'PATCH #update' do
+    before { login(user) }
     context 'with valid attributes' do
       it 'assigns the requested question to @question' do
         patch :update, params: { id: question, question: attributes_for(:question)}
-        expect(assigns(:exposed_question)).to eq question
+        expect(assigns(:question)).to eq question
       end
 
       it 'changes question attributes' do
-        patch :update, params: { id: question, question: { title: 'new title', body: 'new body' } }
+        patch :update, params: { id:question, question: { title: '1234567890', body: '1234567890' } }
         question.reload
 
-        expect(question.title).to eq 'new title'
-        expect(question.body).to eq 'new body'
+        expect(question.title).to eq '1234567890'
+        expect(question.body).to eq '1234567890'
       end
 
       it 'redirects to updated question' do
@@ -54,8 +110,8 @@ RSpec.describe QuestionsController, type: :controller do
       it 'does not change question' do
         question.reload
 
-        expect(question.title).to eq 'MyString'
-        expect(question.body).to eq 'MyText'
+        expect(question.title).to eq 'Question Title'
+        expect(question.body).to eq 'Question Body'
       end
 
       it 're-renders edit view' do
@@ -65,15 +121,19 @@ RSpec.describe QuestionsController, type: :controller do
   end
 
   describe "DELETE #destroy" do
-    let!(:question) { create(:question) }
+    before do
+      login(user)
+      @deleted_question = Question.create(title: 'Some title', body: 'Some body', user_id: user.id)
+    end
+
 
     it 'deletes the question' do
-      expect { delete :destroy, params: { id: question } }.to change(Question, :count).by(-1)
+      expect { delete :destroy, params: { id: @deleted_question } }.to change(Question, :count).by(-1)
     end
 
     it 'redirects to index' do
-      delete :destroy, params: { id: question }
-      expect(response).to redirect_to question_path
+      delete :destroy, params: { id: @deleted_question }
+      expect(response).to redirect_to questions_path
     end
   end
 
