@@ -7,7 +7,7 @@ RSpec.describe AnswersController, type: :controller do
 
   describe 'POST #create' do
     context 'with valid attributes' do
-      let(:action) { post :create, params: { answer: attributes_for(:answer), question_id: question } }
+      let(:action) { post :create, params: { answer: attributes_for(:answer), question_id: question, user_id: user } }
 
       it 'saves a new answer in the database' do
         expect { action }.to change(question.answers, :count).by(1)
