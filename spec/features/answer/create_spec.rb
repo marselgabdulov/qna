@@ -16,11 +16,14 @@ feature 'Authorized user can create answer', %q{
     end
 
     scenario 'answers the question' do
-      fill_in 'answer[body]', with: 'My Answer'
+      fill_in 'Your answer', with: 'My Answer'
       click_on 'Answer'
 
+      expect(current_path).to eq(question_path(question))
       expect(page).to have_content('Your answer successfully created.')
-      expect(page).to have_content('My Answer')
+      within('.answers') do
+        expect(page).to have_content('My Answer')
+      end
     end
 
     scenario 'answers the question with errors' do
