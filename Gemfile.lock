@@ -82,8 +82,6 @@ GEM
     crass (1.0.6)
     date (3.3.3)
     date (3.3.3-java)
-    decent_exposure (3.0.4)
-      activesupport (>= 4.0)
     devise (4.9.2)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -108,8 +106,6 @@ GEM
     jbuilder (2.11.5)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
-    launchy (2.5.2)
-      addressable (~> 2.8)
     listen (3.8.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
@@ -126,7 +122,7 @@ GEM
     method_source (1.0.0)
     mini_mime (1.1.2)
     mini_portile2 (2.8.2)
-    minitest (5.18.0)
+    minitest (5.18.1)
     msgpack (1.7.1)
     msgpack (1.7.1-java)
     net-imap (0.3.6)
@@ -299,11 +295,9 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   byebug
   capybara (>= 3.26)
-  decent_exposure (~> 3.0)
   devise
   factory_bot_rails
   jbuilder (~> 2.7)
-  launchy
   listen (~> 3.3)
   pg (~> 1.1)
   puma (~> 5.0)

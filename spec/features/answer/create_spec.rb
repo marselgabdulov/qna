@@ -15,18 +15,17 @@ feature 'Authorized user can create answer', %q{
       visit question_path(question)
     end
 
-    scenario 'answers the question' do
+    scenario 'answers the question', js: true do
       fill_in 'Your answer', with: 'My Answer'
       click_on 'Answer'
 
       expect(current_path).to eq(question_path(question))
-      expect(page).to have_content('Your answer successfully created.')
       within('.answers') do
         expect(page).to have_content('My Answer')
       end
     end
 
-    scenario 'answers the question with errors' do
+    scenario 'answers the question with errors', js: true do
       click_on 'Answer'
 
       expect(page).to have_content("Body can't be blank")
