@@ -2,15 +2,16 @@
 <p><%= @question.body %></p>
 <p><%= link_to 'Delete', @question, method: :delete, confirm: 'Are you sure?' %></p>
 
-<div class='answer-errors' id='answer-errors'>
+<div class='answer-errors'>
   <%= render 'shared/errors', resource: @answer %>
 </div>
-<%= form_with model: [@question, @answer], local: false do |f| %>
-  <%= f.label :body, 'Your answer' %>
-  <%= f.text_area :body %>
-  <%= f.submit 'Answer' %>
-<% end %>
 
-<ul class='answers' id='answers'>
+<ul class='answers'>
   <%= render @question.answers %>
 </ul>
+
+<%= form_with model: [@question, @answer], class: 'new-answer', local: false do |f| %>
+  <%= f.label :body, 'Your answer' %>
+  <%= f.text_area :body %>
+  <%= f.submit 'Create Answer' %>
+<% end %>

@@ -1,4 +1,13 @@
 <li>
   <p><%= answer.body %></p>
-  <%# <p><%= link_to 'Delete Answer', answer, method: :delete, confirm: 'Are you sure?' %></p>
+  <% if user_signed_in? %>
+    <p><%= link_to 'Edit', '#', class: 'edit-answer-link', data: { answer_id: answer.id } %></p>
+    <p><%= link_to 'Delete Answer', answer, method: :delete, confirm: 'Are you sure?' %></p>
+  <% end %>
 </li>
+
+<%= form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}"  }, local: false do |f| %>
+  <%= f.label :body, 'Your answer' %>
+  <%= f.text_area :body %>
+  <%= f.submit 'Save' %>
+<% end %>
