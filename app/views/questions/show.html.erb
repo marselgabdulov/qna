@@ -1,6 +1,10 @@
-<h1><%= @question.title %></h1>
-<p><%= @question.body %></p>
-<p><%= link_to 'Delete', @question, method: :delete, confirm: 'Are you sure?' %></p>
+<div class='question-errors'>
+  <%= render 'shared/errors', resource: @question %>
+</div>
+
+<div class='question'>
+  <%= render 'question' %>
+</div>
 
 <div class='answer-errors'>
   <%= render 'shared/errors', resource: @answer %>
