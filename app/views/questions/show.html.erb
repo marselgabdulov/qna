@@ -1,19 +1,13 @@
-<h1><%= @question.title %></h1>
-<p><%= @question.body %></p>
-<p><%= link_to 'Delete', @question, method: :delete, confirm: 'Are you sure?' %></p>
+<div class='question'>
+  <%= render 'question' %>
+</div>
 
-<%= render 'shared/errors', resource: @answer %>
-<%= form_with model: [@question, @answer] do |f| %>
+<ul class='answers'>
+  <%= render @question.answers.sort_by_best %>
+</ul>
+
+<%= form_with model: [@question, @answer], class: 'new-answer', local: false do |f| %>
   <%= f.label :body, 'Your answer' %>
   <%= f.text_area :body %>
-  <%= f.submit 'Answer' %>
+  <%= f.submit 'Create Answer' %>
 <% end %>
-
-<ul>
-  <% @answers.each do |answer| %>
-  <li>
-    <%= answer.body %>
-    <p><%= link_to 'Delete Answer', answer, method: :delete, confirm: 'Are you sure?' %></p>
-  </li>
-  <% end %>
-</ul>

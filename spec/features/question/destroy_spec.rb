@@ -21,8 +21,7 @@ feature 'Author can destroy question', %q{
   scenario 'not an author to tries destroy the question' do
     sign_in(not_author)
     visit question_path(question_to_delete)
-    click_on 'Delete'
 
-    expect(page).to have_content 'Only an author can do it.'
+    expect(page).to_not have_content 'Delete'
   end
 end

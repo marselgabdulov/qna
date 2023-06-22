@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   root to: 'questions#index'
 
   resources :questions do
-    resources :answers, shallow: true
+    resources :answers, shallow: true, only: [:create, :update, :destroy, :mark_as_best] do
+      post 'mark_as_best', on: :member
+    end
   end
 end

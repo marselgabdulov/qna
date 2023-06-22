@@ -1,0 +1,15 @@
+<h1><%= @question.title %></h1>
+<p><%= @question.body %></p>
+
+<div class='question-errors'>
+  <%= render 'shared/errors', resource: @question %>
+</div>
+
+<% if current_user == @question.user %>
+  <p><%= link_to 'Delete', @question, method: :delete, confirm: 'Are you sure?' %></p>
+  <p><%= link_to 'Edit Question', '#', class: 'edit-question-link' %></p>
+<% end %>
+
+<div id='question-form' class='hidden'>
+  <%= render 'form' %>
+</div>

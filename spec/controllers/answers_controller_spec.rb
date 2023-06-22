@@ -7,32 +7,76 @@ RSpec.describe AnswersController, type: :controller do
 
   describe 'POST #create' do
     context 'with valid attributes' do
-      let(:action) { post :create, params: { answer: attributes_for(:answer), question_id: question, user_id: user } }
-
-      it 'saves a new answer in the database' do
-        expect { action }.to change(question.answers, :count).by(1)
+      it 'saves the new answer in the database' do
+        expect { post :create, params: { answer: attributes_for(:answer), question_id: question }, format: :js }.to change(question.answers, :count).by(1)
       end
 
-      it 'saves correct association with the question' do
-        action
-        expect(assigns(:answer).question_id).to eq question.id
-      end
-
-      it 'redirects to show view' do
-        expect(action).to redirect_to assigns(:question)
+      it 'renders create template' do
+        post :create, params: { answer: attributes_for(:answer), question_id: question, format: :js }
+        expect(response).to render_template :create
       end
     end
 
     context 'with invalid attributes' do
-      let(:action) { post :create, params: { answer: attributes_for(:answer, :invalid), question_id: question } }
-
-      it 'does not save the answer' do
-        expect { action }.to_not change(Answer, :count)
+      it 'does not save the question' do
+        expect { post :create, params: { answer: attributes_for(:answer, :invalid), question_id: question }, format: :js }.to_not change(Answer, :count)
       end
 
-      it 're-renders question#show view' do
-        expect(action).to redirect_to assigns(:question)
+      it 'renders create template' do
+        post :create, params: { answer: attributes_for(:answer, :invalid), question_id: question, format: :js }
+        expect(response).to render_template :create
       end
+    end
+  end
+
+  describe 'PATCH #update' do
+    let!(:answer) { create(:answer, question: question) }
+
+    context 'with valid attributes' do
+      it 'changes answer attributes' do
+        patch :update, params: { id: answer, answer: { body: 'new body' } }, format: :js
+        answer.reload
+        expect(answer.body).to eq 'new body'
+      end
+
+      it 'renders update view' do
+        patch :update, params: { id: answer, answer: { body: 'new body' } }, format: :js
+        expect(response).to render_template :update
+      end
+    end
+
+    context 'with invalid attributes' do
+      it 'does not change answer attributes' do
+        expect do
+          patch :update, params: { id: answer, answer: attributes_for(:answer, :invalid) }, format: :js
+        end.to_not change(answer, :body)
+      end
+
+      it 'renders update view' do
+        patch :update, params: { id: answer, answer: attributes_for(:answer, :invalid) }, format: :js
+        expect(response).to render_template :update
+      end
+    end
+  end
+
+  describe 'DELETE #destroy' do
+    let!(:answer) { create(:answer, question: question) }
+
+    it 'destroyes the answer' do
+      expect do
+        delete :destroy, params: { id: answer }, format: :js
+      end.to change(question.answers, :count).by(-1)
+    end
+  end
+
+  describe 'POST #mark_as_best' do
+    let!(:answer) { create(:answer, question: question) }
+
+    it 'marks answer as the best' do
+      expect do
+        post :mark_as_best, params: { id: answer }, format: :js
+        answer.reload
+      end.to change(answer, :best).to true
     end
   end
 end
