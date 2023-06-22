@@ -68,4 +68,15 @@ RSpec.describe AnswersController, type: :controller do
       end.to change(question.answers, :count).by(-1)
     end
   end
+
+  describe 'POST #mark_as_best' do
+    let!(:answer) { create(:answer, question: question) }
+
+    it 'marks answer as the best' do
+      expect do
+        post :mark_as_best, params: { id: answer }, format: :js
+        answer.reload
+      end.to change(answer, :best).to true
+    end
+  end
 end

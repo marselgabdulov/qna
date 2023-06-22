@@ -1,5 +1,6 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
+  before_action :load_answer, except: [:create]
 
   def create
     @question = Question.find(params[:question_id])
@@ -9,17 +10,24 @@ class AnswersController < ApplicationController
   end
 
   def update
-    @answer = Answer.find(params[:id])
     @answer.update(answer_params)
     @question = @answer.question
   end
 
   def destroy
-    @answer = Answer.find(params[:id])
     @answer.destroy
   end
 
+  def mark_as_best
+    @answer.mark_as_best
+    @question = @answer.question
+  end
+
   private
+
+  def load_answer
+    @answer = Answer.find(params[:id])
+  end
 
   def answer_params
     params.require(:answer).permit(:body)
