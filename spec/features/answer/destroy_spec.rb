@@ -25,8 +25,7 @@ feature 'Author can destroy answer', %q{
   scenario 'not an author to tries destroy the answer' do
     sign_in(not_author)
     visit question_path(question)
-    click_on 'Delete Answer'
 
-    expect(page).to have_content 'Only an author can do it.'
+    expect(page).to_not have_content 'Delete Answer'
   end
 end

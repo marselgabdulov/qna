@@ -15,6 +15,7 @@ $(document).on('turbolinks:load', function () {
       $(this[1]).val('');
     })
     .on('ajax:error', function (e) {
+      console.log(e);
       const errors = e.detail[0];
 
       $.each(errors, function (index, value) {
