@@ -1,4 +1,4 @@
-<li>
+<li id=<%= answer.id %>>
   <p><%= answer.body %></p>
 
   <div class='answer-errors'>
@@ -7,7 +7,7 @@
 
   <% if current_user == answer.user %>
     <p><%= link_to 'Edit Answer', '#', class: 'edit-answer-link', data: { answer_id: answer.id } %></p>
-    <p><%= link_to 'Delete Answer', answer, method: :delete, confirm: 'Are you sure?' %></p>
+    <p><%= link_to 'Delete Answer', answer, class: 'remove-answer-link', method: :delete, remote: true %></p>
   <% end %>
 </li>
 

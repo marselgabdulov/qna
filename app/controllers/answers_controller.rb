@@ -16,15 +16,7 @@ class AnswersController < ApplicationController
 
   def destroy
     @answer = Answer.find(params[:id])
-    question = @answer.question
-
-    if current_user.id == @answer.user_id
-      @answer.destroy
-      flash[:notice] = 'The answer was successfully destroyed.'
-      redirect_to question
-    else
-      redirect_to question, notice: 'Only an author can do it.'
-    end
+    @answer.destroy
   end
 
   private
