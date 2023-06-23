@@ -18,6 +18,17 @@
     <% end %>
   </div>
 
+  <div class="links">
+    <p>Links:</p>
+    <ul>
+      <% @question.links.each do |link| %>
+          <li>
+            <%= link_to link.name, link.url %>
+          </li>
+      <% end %>
+    </ul>
+  </div>
+
   <% if current_user == @question.user %>
     <p><%= link_to 'Delete', @question, method: :delete, confirm: 'Are you sure?' %></p>
     <p><%= link_to 'Edit Question', '#', class: 'edit-question-link' %></p>
