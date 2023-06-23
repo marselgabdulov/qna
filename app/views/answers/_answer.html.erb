@@ -1,9 +1,11 @@
 <li class='answer' id=<%= answer.id %>>
   <p><%= answer.body %></p>
 
-  <div class='answer-errors'>
-    <%= render 'shared/errors', resource: answer %>
-  </div>
+  <% if answer.files.attached? %>
+    <% answer.files.each do |file| %>
+      <p><%= link_to file.filename.to_s, url_for(file) %></p>
+    <% end %>
+  <% end %>
 
   <% if current_user == answer.user %>
     <p><%= link_to 'Edit Answer', '#', class: 'edit-answer-link', data: { answer_id: answer.id } %></p>
@@ -19,5 +21,7 @@
 <%= form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}"  }, local: false do |f| %>
   <%= f.label :body, 'Your answer' %>
   <%= f.text_area :body %>
+  <%= f.label :files %>
+  <%= f.file_field :files, multiple: true %>
   <%= f.submit 'Save' %>
 <% end %>
