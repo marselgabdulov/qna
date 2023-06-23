@@ -7,8 +7,10 @@ Rails.application.routes.draw do
   root to: 'questions#index'
 
   resources :questions do
-    resources :answers, shallow: true, only: [:create, :update, :destroy, :mark_as_best] do
+    resources :answers, shallow: true, only: %i(create update destroy) do
       post 'mark_as_best', on: :member
     end
   end
+
+  delete 'attachments/:id/purge', to: 'attachments#purge', as: 'purge_attachment'
 end

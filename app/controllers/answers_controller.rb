@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :load_answer, except: [:create]
+  before_action :load_answer, except: :create
 
   def create
     @question = Question.find(params[:question_id])
@@ -26,10 +26,10 @@ class AnswersController < ApplicationController
   private
 
   def load_answer
-    @answer = Answer.find(params[:id])
+    @answer = Answer.with_attached_files.find(params[:id])
   end
 
   def answer_params
-    params.require(:answer).permit(:body)
+    params.require(:answer).permit(:body, files: [])
   end
 end
