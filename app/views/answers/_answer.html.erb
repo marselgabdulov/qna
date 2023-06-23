@@ -1,11 +1,18 @@
 <li class='answer' id=<%= answer.id %>>
   <p><%= answer.body %></p>
 
-  <% if answer.files.attached? %>
-    <% answer.files.each do |file| %>
-      <p><%= link_to file.filename.to_s, url_for(file) %></p>
+  <div class='answer-files'>
+    <% if answer.files.attached? %>
+      <% answer.files.each do |file| %>
+        <p class='file-container'>
+          <%= link_to file.filename.to_s, url_for(file) %>
+          <% if current_user == @question.user %>
+            <span><%= link_to 'delete file', purge_attachment_path(file), class: 'remove-file-link', method: :delete, remote: true %></span>
+          <% end %>
+        </p>
+      <% end %>
     <% end %>
-  <% end %>
+  </div>
 
   <% if current_user == answer.user %>
     <p><%= link_to 'Edit Answer', '#', class: 'edit-answer-link', data: { answer_id: answer.id } %></p>
