@@ -14,6 +14,17 @@
     <% end %>
   </div>
 
+  <div class="links">
+    <p>Links:</p>
+    <ul>
+      <% answer.links.each do |link| %>
+        <li>
+          <%= link_to link.name, link.url %>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
   <% if current_user == answer.user %>
     <p><%= link_to 'Edit Answer', '#', class: 'edit-answer-link', data: { answer_id: answer.id } %></p>
     <p><%= link_to 'Delete Answer', answer, class: 'remove-answer-link', method: :delete, remote: true %></p>
@@ -30,5 +41,12 @@
   <%= f.text_area :body %>
   <%= f.label :files %>
   <%= f.file_field :files, multiple: true, direct_upload: true %>
+  <p>Links:</p>
+  <%= f.fields_for :links do |l| %>
+    <%= l.label :name, 'Link Name' %>
+    <%= l.text_field :name %>
+    <%= l.label :url %>
+    <%= l.text_field :url %>
+  <% end %>
   <%= f.submit 'Save' %>
 <% end %>

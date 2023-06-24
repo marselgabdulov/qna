@@ -12,5 +12,11 @@
   <%= f.text_area :body %>
   <%= f.label :files %>
   <%= f.file_field :files, multiple: true, direct_upload: true %>
+  <%= f.fields_for :links do |l| %>
+    <%= l.label :name, 'Link Name' %>
+    <%= l.text_field :name %>
+    <%= l.label :url %>
+    <%= l.text_field :url %>
+  <% end %>
   <%= f.submit 'Create Answer' %>
 <% end %>
