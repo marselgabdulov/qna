@@ -1,15 +1,15 @@
-= form_with model: @question, class: 'new-question', local: false do |f|
-  = f.label :title
-  = f.text_field :title
-  = f.label :body
-  = f.text_area :body
-  = f.label :files
-  = f.file_field :files, multiple: true, direct_upload: true
+= form_with model: @question, class: 'form new-question', local: false do |f|
+  = f.label :title, class: 'form-label'
+  = f.text_field :title, class: 'form-control'
+  = f.label :body, class: 'form-label'
+  = f.text_area :body, class: 'form-control'
+  = f.label :files, class: 'form-label'
+  = f.file_field :files, class: 'form-control', type: 'file', multiple: true, direct_upload: true
   p
     | Links:
   = f.fields_for :links do |l|
-    = l.label :name, 'Link Name'
-    = l.text_field :name
-    = l.label :url
-    = l.text_field :url
-  = f.submit 'Save'
+    = l.label :name, 'Link Name', class: 'form-label'
+    = l.text_field :name, class: 'form-control'
+    = l.label :url, class: 'form-label'
+    = l.text_field :url, class: 'form-control'
+  = f.submit 'Save', class: 'btn btn-primary'

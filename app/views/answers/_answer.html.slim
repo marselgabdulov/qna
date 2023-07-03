@@ -1,6 +1,6 @@
 | <li class='answer' id=
 = answer.id
-| > 
+| >
 p
   = answer.body
 .answer-files
@@ -18,24 +18,23 @@ p
     - answer.links.each do |link|
       li
         = link_to link.name, link.url
-- if current_user == answer.user
-  p
+.actions-container
+  - if current_user == answer.user
     = link_to 'Edit Answer', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
-  p
     = link_to 'Delete Answer', answer, class: 'remove-answer-link', method: :delete, remote: true
-- if current_user == answer.question.user
-  p
+  - if current_user == answer.question.user
     = link_to 'Best Answer', mark_as_best_answer_path(answer), method: :post, data: { answer_id: answer.id }, remote: true
-= form_with model: answer, class: 'hidden', html: { id: "edit-answer-#{answer.id}"  }, local: false do |f|
-  = f.label :body, 'Your answer'
-  = f.text_area :body
-  = f.label :files
-  = f.file_field :files, multiple: true, direct_upload: true
+
+= form_with model: answer, class: 'form hidden', html: { id: "edit-answer-#{answer.id}"  }, local: false do |f|
+  = f.label :body, 'Your answer', class: 'form-label'
+  = f.text_area :body, class: 'form-control'
+  = f.label :files, class: 'form-label'
+  = f.file_field :files, class: 'form-control', type: 'file', multiple: true, direct_upload: true
   p
     | Links:
   = f.fields_for :links do |l|
-    = l.label :name, 'Link Name'
-    = l.text_field :name
-    = l.label :url
-    = l.text_field :url
-  = f.submit 'Save'
+    = l.label :name, 'Link Name', class: 'form-label'
+    = l.text_field :name, class: 'form-control'
+    = l.label :url, class: 'form-label'
+    = l.text_field :url, class: 'form-control'
+  = f.submit 'Save', class: 'btn btn-primary'

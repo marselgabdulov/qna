@@ -1,16 +1,21 @@
 = render 'question'
+
 ul.answers
   .answer-errors
     = render 'shared/errors', resource: @answer
+
   = render @question.answers.sort_by_best
-= form_with model: [@question, @answer], class: 'new-answer', local: false do |f|
-  = f.label :body, 'Your answer'
-  = f.text_area :body
-  = f.label :files
-  = f.file_field :files, multiple: true, direct_upload: true
+
+= form_with model: [@question, @answer], class: 'form new-answer', local: false do |f|
+  = f.label :body, 'Your answer', class: 'form-label'
+  = f.text_area :body, class: 'form-control'
+  = f.label :files, class: 'form-label'
+  = f.file_field :files,class: 'form-control', type: 'file', multiple: true, direct_upload: true
   = f.fields_for :links do |l|
-    = l.label :name, 'Link Name'
-    = l.text_field :name
-    = l.label :url
-    = l.text_field :url
-  = f.submit 'Create Answer'
+    = l.label :name, 'Link Name', class: 'form-label'
+    = l.text_field :name, class: 'form-control'
+    = l.label :url, class: 'form-label'
+    = l.text_field :url, class: 'form-control'
+  = f.submit 'Create Answer', class: 'btn btn-primary'
+
+= link_to 'Back', questions_path
