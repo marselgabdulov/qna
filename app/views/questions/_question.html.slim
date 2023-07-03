@@ -1,6 +1,4 @@
 .question
-  .question-errors
-    = render 'shared/errors', resource: @question
   h1
     = @question.title
   p
@@ -21,19 +19,10 @@
         li
           = link_to link.name, link.url
   - if current_user == @question.user
-    p
-      = link_to 'Delete', @question, method: :delete, confirm: 'Are you sure?'
-    p
+    .actions-container
       = link_to 'Edit Question', '#', class: 'edit-question-link'
+      = link_to 'Delete Question', @question, method: :delete, confirm: 'Are you sure?'
   #question-form.hidden
-    = form_with model: [@question, @answer], class: 'form new-answer', local: false do |f|
-      = f.label :body, 'Your answer', class: 'form-label'
-      = f.text_area :body, class: 'form-control'
-      = f.label :files, class: 'form-label'
-      = f.file_field :files,class: 'form-control', type: 'file', multiple: true, direct_upload: true
-      = f.fields_for :links do |l|
-        = l.label :name, 'Link Name', class: 'form-label'
-        = l.text_field :name, class: 'form-control'
-        = l.label :url, class: 'form-label'
-        = l.text_field :url, class: 'form-control'
-      = f.submit 'Create Answer', class: 'btn btn-primary'
+    .question-errors
+      = render 'shared/errors', resource: @question
+    = render 'edit_form'

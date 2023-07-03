@@ -1,4 +1,5 @@
-= render 'shared/errors', resource: @question
+.question-errors
+  = render 'shared/errors', resource: @question
 h1 Create Question
-= render 'form'
+= render 'new_form'
 = link_to 'Back', questions_path
