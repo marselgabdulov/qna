@@ -1,0 +1,15 @@
+= form_with model: @question, class: 'new-question', local: false do |f|
+  = f.label :title
+  = f.text_field :title
+  = f.label :body
+  = f.text_area :body
+  = f.label :files
+  = f.file_field :files, multiple: true, direct_upload: true
+  p
+    | Links:
+  = f.fields_for :links do |l|
+    = l.label :name, 'Link Name'
+    = l.text_field :name
+    = l.label :url
+    = l.text_field :url
+  = f.submit 'Save'

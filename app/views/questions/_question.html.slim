@@ -1,0 +1,29 @@
+.question
+  .question-errors
+    = render 'shared/errors', resource: @question
+  h1
+    = @question.title
+  p
+    = @question.body
+  .question-files
+    - if @question.files.attached?
+      - @question.files.each do |file|
+        p.file-container
+          = link_to file.filename.to_s, url_for(file)
+          - if current_user == @question.user
+            span
+              = link_to 'delete file', purge_attachment_path(file), class: 'remove-file-link', method: :delete, remote: true
+  .links
+    p
+      | Links:
+    ul
+      - @question.links.each do |link|
+        li
+          = link_to link.name, link.url
+  - if current_user == @question.user
+    p
+      = link_to 'Delete', @question, method: :delete, confirm: 'Are you sure?'
+    p
+      = link_to 'Edit Question', '#', class: 'edit-question-link'
+  #question-form.hidden
+    = render 'form'

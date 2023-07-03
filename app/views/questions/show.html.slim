@@ -1,0 +1,16 @@
+= render 'question'
+ul.answers
+  .answer-errors
+    = render 'shared/errors', resource: @answer
+  = render @question.answers.sort_by_best
+= form_with model: [@question, @answer], class: 'new-answer', local: false do |f|
+  = f.label :body, 'Your answer'
+  = f.text_area :body
+  = f.label :files
+  = f.file_field :files, multiple: true, direct_upload: true
+  = f.fields_for :links do |l|
+    = l.label :name, 'Link Name'
+    = l.text_field :name
+    = l.label :url
+    = l.text_field :url
+  = f.submit 'Create Answer'
