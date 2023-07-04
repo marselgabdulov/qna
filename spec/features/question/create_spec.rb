@@ -8,7 +8,7 @@ feature 'User can create question', %q{
 
   given(:user) { create(:user) }
 
-  describe 'Authenticated user' do
+  describe 'Authenticated user asks question' do
     background do
       sign_in(user)
 
@@ -16,7 +16,7 @@ feature 'User can create question', %q{
       click_on 'Ask question'
     end
 
-    scenario 'asks a question' do
+    scenario 'without errors' do
       fill_in 'Title', with: 'Test question'
       fill_in 'Body', with: 'some text'
       click_on 'Save'
@@ -26,13 +26,13 @@ feature 'User can create question', %q{
       expect(page).to have_content 'some text'
     end
 
-    scenario 'asks a question whith errors' do
+    scenario 'whith errors' do
       click_on 'Save'
 
       expect(page).to have_content "Title can't be blank"
     end
 
-    scenario 'asks a question with attached file' do
+    scenario 'with attached files' do
       fill_in 'Title', with: 'Test question'
       fill_in 'Body', with: 'some text'
       attach_file 'File', ["#{Rails.root}/spec/rails_helper.rb", "#{Rails.root}/spec/spec_helper.rb"]
@@ -40,6 +40,17 @@ feature 'User can create question', %q{
 
       expect(page).to have_link 'rails_helper.rb'
       expect(page).to have_link 'spec_helper.rb'
+    end
+
+    scenario 'and creates reward' do
+      fill_in 'Title', with: 'Test question'
+      fill_in 'Body', with: 'some text'
+      within '.reward' do
+        fill_in 'Reward Name', with: 'Best Answer'
+        attach_file 'Reward Image', "#{Rails.root}/spec/fixtures/reward.jpg"
+      end
+
+      expect(page).to have_link 'reward.jpg'
     end
   end
 
