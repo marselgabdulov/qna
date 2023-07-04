@@ -27,7 +27,7 @@ feature 'User can edit his answer', %q{
     scenario 'edits his answer', js: true do
       within '.answers' do
         click_on 'Edit Answer'
-        fill_in 'Your answer', with: 'edited answer'
+        fill_in 'Your Answer', with: 'edited answer'
         click_on 'Save'
 
         expect(page).to_not have_content answer.body
@@ -50,7 +50,7 @@ feature 'User can edit his answer', %q{
     scenario 'edits his answer with errors', js: true do
       within '.answers' do
         click_on 'Edit Answer'
-        fill_in 'Your answer', with: ''
+        fill_in 'Your Answer', with: ''
         click_on 'Save'
 
         expect(page).to have_content("Body can't be blank")

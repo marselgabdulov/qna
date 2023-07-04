@@ -11,13 +11,14 @@
           - if current_user == @question.user
             span
               = link_to 'delete file', purge_attachment_path(file), class: 'remove-file-link', method: :delete, remote: true
-  .links
-    p
-      | Links:
-    ul
-      - @question.links.each do |link|
-        li
-          = link_to link.name, link.url
+
+  - if @question.links.any?
+    .links
+      p Links:
+      ul
+        - @question.links.each do |link|
+          li
+            = link_to link.name, link.url
   - if current_user == @question.user
     .actions-container
       = link_to 'Edit Question', '#', class: 'edit-question-link'

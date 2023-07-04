@@ -5,11 +5,11 @@
   = f.text_area :body, class: 'form-control'
   = f.label :files, class: 'form-label'
   = f.file_field :files, class: 'form-control', type: 'file', multiple: true, direct_upload: true
-  p
-    | Links:
-  = f.fields_for :links do |l|
-    = l.label :name, 'Link Name', class: 'form-label'
-    = l.text_field :name, class: 'form-control'
-    = l.label :url, class: 'form-label'
-    = l.text_field :url, class: 'form-control'
+
+  #links
+    = f.fields_for :links do |link|
+      = render 'link_fields', f: link
+    .links
+      = link_to_add_association 'add link', f, :links
+
   = f.submit 'Save', class: 'btn btn-primary'

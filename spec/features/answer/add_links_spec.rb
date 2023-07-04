@@ -14,9 +14,9 @@ feature 'User can add links to the answer', %q{
     sign_in(user)
     visit question_path(question)
 
-    fill_in 'Your answer', with: 'Answer Body'
+    fill_in 'Your Answer', with: 'Answer Body'
     fill_in 'Link Name', with: 'My Gist'
-    fill_in 'Url', with: gist_url
+    fill_in 'Link Url', with: gist_url
 
     click_on 'Create Answer'
 

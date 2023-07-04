@@ -1,40 +1,40 @@
-| <li class='answer' id=
-= answer.id
-| >
-p
-  = answer.body
-.answer-files
-  - if answer.files.attached?
-    - answer.files.each do |file|
-      p.file-container
-        = link_to file.filename.to_s, url_for(file)
-        - if current_user == @question.user
-          span
+div[class="card" id="#{answer.id}"]
+  .card-body
+    = answer.body
+  .answer-files
+    - if answer.files.attached?
+      - answer.files.each do |file|
+        .file-container
+          = link_to file.filename.to_s, url_for(file)
+          - if current_user == answer.user
             = link_to 'delete file', purge_attachment_path(file), class: 'remove-file-link', method: :delete, remote: true
-.links
-  p
-    | Links:
-  ul
-    - answer.links.each do |link|
-      li
-        = link_to link.name, link.url
-.actions-container
-  - if current_user == answer.user
-    = link_to 'Edit Answer', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
-    = link_to 'Delete Answer', answer, class: 'remove-answer-link', method: :delete, remote: true
-  - if current_user == answer.question.user
-    = link_to 'Best Answer', mark_as_best_answer_path(answer), method: :post, data: { answer_id: answer.id }, remote: true
+
+  - if answer.links.any?
+    .links
+      p Links:
+      ul
+        - answer.links.each do |link|
+          li
+            = link_to link.name, link.url
+
+  .card-footer
+    .actions-container
+      - if current_user == answer.user
+        = link_to 'Edit Answer', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
+        = link_to 'Delete Answer', answer, class: 'remove-answer-link', method: :delete, remote: true
+      - if current_user == answer.question.user
+        = link_to 'Best Answer', mark_as_best_answer_path(answer), method: :post, data: { answer_id: answer.id }, remote: true
 
 = form_with model: answer, class: 'form hidden', html: { id: "edit-answer-#{answer.id}"  }, local: false do |f|
-  = f.label :body, 'Your answer', class: 'form-label'
+  = f.label :body, 'Your Answer', class: 'form-label'
   = f.text_area :body, class: 'form-control'
   = f.label :files, class: 'form-label'
   = f.file_field :files, class: 'form-control', type: 'file', multiple: true, direct_upload: true
-  p
-    | Links:
-  = f.fields_for :links do |l|
-    = l.label :name, 'Link Name', class: 'form-label'
-    = l.text_field :name, class: 'form-control'
-    = l.label :url, class: 'form-label'
-    = l.text_field :url, class: 'form-control'
+
+  #links
+    = f.fields_for :links do |link|
+      = render 'link_fields', f: link
+    .links
+      = link_to_add_association 'add link', f, :links
+
   = f.submit 'Save', class: 'btn btn-primary'
