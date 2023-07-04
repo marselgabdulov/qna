@@ -7,7 +7,7 @@
   = f.file_field :files, class: 'form-control', type: 'file', multiple: true, direct_upload: true
 
   h3 Links:
-  #links
+  #edit-question-links
     = f.fields_for :links do |link|
       = render 'link_fields', f: link
     .links
