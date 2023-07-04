@@ -21,7 +21,7 @@ feature 'User can add links to the answer', %q{
     click_on 'Create Answer'
 
     within '.answers' do
-      expect(page).to have_link 'My Gist', href: gist_url
+      expect(page).to have_content('gistfile1.txt hosted with ❤ by GitHub')
     end
   end
 

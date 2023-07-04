@@ -10,6 +10,8 @@ import 'channels';
 import 'jquery';
 import 'bootstrap';
 import '@nathanvda/cocoon';
+import 'gist-embed/dist/gist-embed.min';
+import 'utilities/gistEmbed';
 
 Rails.start();
 Turbolinks.start();

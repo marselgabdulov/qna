@@ -12,10 +12,9 @@ div[class="card" id="#{answer.id}"]
   - if answer.links.any?
     .links
       p Links:
-      ul
+      div.answer-links
         - answer.links.each do |link|
-          li
-            = link_to link.name, link.url
+          = render 'links/link', link: link
 
   .card-footer
     .actions-container

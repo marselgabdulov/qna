@@ -15,10 +15,9 @@
   - if @question.links.any?
     .links
       p Links:
-      ul
+      div.question-links
         - @question.links.each do |link|
-          li
-            = link_to link.name, link.url
+          = render 'links/link', link: link
 
   - if current_user == @question.user
     .actions-container

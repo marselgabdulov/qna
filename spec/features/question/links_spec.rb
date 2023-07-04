@@ -25,7 +25,7 @@ feature "Author of the question can manipulate with question's links", %q{
       fill_in 'Link Url', with: gist_url
       click_on 'Save'
 
-      expect(page).to have_link('My Gist', href: gist_url)
+      expect(page).to have_content('gistfile1.txt hosted with ❤ by GitHub')
     end
 
     scenario 'with invalid url', js: true do
