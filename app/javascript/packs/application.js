@@ -7,7 +7,11 @@ import Rails from '@rails/ujs';
 import Turbolinks from 'turbolinks';
 import * as ActiveStorage from '@rails/activestorage';
 import 'channels';
-require('jquery');
+import 'jquery';
+import 'bootstrap';
+import '@nathanvda/cocoon';
+import 'gist-embed/dist/gist-embed.min';
+import 'utilities/gistEmbed';
 
 Rails.start();
 Turbolinks.start();
