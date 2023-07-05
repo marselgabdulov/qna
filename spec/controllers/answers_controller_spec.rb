@@ -76,7 +76,7 @@ RSpec.describe AnswersController, type: :controller do
       expect do
         post :mark_as_best, params: { id: answer }, format: :js
         answer.reload
-      end.to change(answer, :best).to true
+      end.to change(answer, :best).to(true)
     end
   end
 end
