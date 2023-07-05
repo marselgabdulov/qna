@@ -13,4 +13,6 @@ Rails.application.routes.draw do
   end
 
   delete 'attachments/:id/purge', to: 'attachments#purge', as: 'purge_attachment'
+
+  resources :rewards, only: :index
 end

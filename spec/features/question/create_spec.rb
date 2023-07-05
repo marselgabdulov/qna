@@ -45,12 +45,14 @@ feature 'User can create question', %q{
     scenario 'and creates reward' do
       fill_in 'Title', with: 'Test question'
       fill_in 'Body', with: 'some text'
-      within '.reward' do
-        fill_in 'Reward Name', with: 'Best Answer'
-        attach_file 'Reward Image', "#{Rails.root}/spec/fixtures/reward.jpg"
-      end
 
-      expect(page).to have_link 'reward.jpg'
+      within '#reward' do
+        fill_in 'Reward Name', with: 'Best Answer'
+        attach_file 'Reward Image', "#{Rails.root}/spec/fixtures/reward.png"
+      end
+      click_on 'Save'
+
+      expect(page).to have_content 'Best Answer'
     end
   end
 

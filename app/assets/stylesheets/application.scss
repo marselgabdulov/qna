@@ -34,3 +34,13 @@ hr {
   border: 0;
   border-top: 1px solid grey;
 }
+
+.reward-image-container {
+  width: 100px;
+  height: 100px;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}

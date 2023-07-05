@@ -6,6 +6,14 @@
   = f.label :files, class: 'form-label'
   = f.file_field :files, class: 'form-control', type: 'file', multiple: true, direct_upload: true
 
+  h3 Reward
+  #reward
+    = f.fields_for :reward do |reward|
+      = render 'rewards/reward_fields', f: reward
+    .reward
+      = link_to_add_association 'add reward', f, :rewards, partial: 'rewards/reward_fields'
+
+  h3 Links
   #links
     = f.fields_for :links do |link|
       = render 'link_fields', f: link

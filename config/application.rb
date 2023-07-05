@@ -27,5 +27,10 @@ module Qna
                        request_specs: false,
                        controller_specs: true
     end
+
+    # initializer(:remove_action_mailbox_and_activestorage_routes, after: :add_routing_paths) { |app|
+    #   app.routes_reloader.paths.delete_if {|path| path =~ /activestorage/}
+    #   app.routes_reloader.paths.delete_if {|path| path =~ /actionmailbox/ }
+    # }
   end
 end

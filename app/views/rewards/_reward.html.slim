@@ -1,0 +1,9 @@
+.ul.list-unstyled
+  .li.media
+    .reward-image-container
+      = image_tag(reward.image)
+    .media-body
+      h5.mt-0.mb-1
+        = reward.name
+      = 'For the best answer to the Question: '
+      = link_to reward.question.title, reward.question, class: 'text-info'

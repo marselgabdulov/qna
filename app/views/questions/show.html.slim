@@ -1,5 +1,14 @@
 = render 'question'
 
+#reward
+  - if user_signed_in?
+    = link_to 'My rewards', rewards_path
+
+  - if @question.reward.present?
+    p Rewards:
+    .question-rewards
+      = render @question.reward
+
 .answers
   h2 Answers:
   .answer-errors
