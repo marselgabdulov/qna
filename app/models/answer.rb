@@ -1,8 +1,7 @@
 class Answer < ApplicationRecord
-  include Votable
+  include Attachable
   include Linkable
-
-  has_many_attached :files
+  include Votable
 
   belongs_to :question
   belongs_to :user

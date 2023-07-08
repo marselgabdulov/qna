@@ -1,10 +1,10 @@
 class Question < ApplicationRecord
-  include Votable
+  include Attachable
   include Linkable
+  include Votable
 
   has_many :answers, dependent: :destroy
 
-  has_many_attached :files
   has_one :reward, dependent: :destroy
 
   accepts_nested_attributes_for :reward, reject_if: :all_blank, allow_destroy: true
