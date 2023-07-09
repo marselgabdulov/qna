@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe QuestionsController, type: :controller do
   let(:question) { create(:question) }
   let(:user) { create(:user) }
+  let(:another_user) { create(:user) }
 
   describe 'GET #index' do
     let(:questions) { create_list(:question, 3) }
@@ -131,4 +132,126 @@ RSpec.describe QuestionsController, type: :controller do
     end
   end
 
+  describe 'POST #vote_up' do
+    let(:question) { create(:question, user: another_user) }
+
+    context 'authenticated user' do
+      context 'not author of the quesiton' do
+        before { login(user) }
+
+        it 'create vote up' do
+          expect {
+            post :vote_up, params: { id: question }, format: :json
+          }.to change(Vote, :count).by(1)
+        end
+
+        it 'renders json with question id and rating' do
+          rendered_body = { id: question.id, rating: question.rating + 1 }.to_json
+
+          post :vote_up, params: { id: question }, format: :json
+          expect(response.body).to eq rendered_body
+        end
+      end
+
+      context 'author of the question' do
+        before { login(another_user) }
+
+        it 'does not create vote up' do
+          expect {
+            post :vote_up, params: { id: question }, format: :json
+          }.to_not change(Vote, :count)
+        end
+      end
+    end
+
+    context 'unauthenticated user' do
+      it 'does not create vote up' do
+        expect {
+          post :vote_up, params: { id: question }, format: :json
+        }.to_not change(Vote, :count)
+      end
+    end
+  end
+
+  describe 'POST #vote_down' do
+    let(:question) { create(:question, user: another_user) }
+
+    context 'authenticated user' do
+      context 'not author of the question' do
+        before { login(user) }
+
+        it 'create voted down' do
+          expect {
+            post :vote_down, params: { id: question }, format: :json
+          }.to change(Vote, :count).by(1)
+        end
+
+        it 'renders json with question id and rating' do
+          rendered_body = { id: question.id, rating: question.rating - 1 }.to_json
+
+          post :vote_down, params: { id: question }, format: :json
+          expect(response.body).to eq rendered_body
+        end
+      end
+
+      context 'author of the question' do
+        before { login(another_user) }
+
+        it 'does not create vote down' do
+          expect {
+            post :vote_down, params: { id: question }, format: :json
+          }.to_not change(Vote, :count)
+        end
+      end
+    end
+
+    context 'unauthenticated user' do
+      it 'does not create vote down' do
+        expect {
+          post :vote_down, params: { id: question }, format: :json
+        }.to_not change(Vote, :count)
+      end
+    end
+  end
+
+  describe 'POST #revote' do
+    let(:question) { create(:question) }
+    let!(:vote) { create(:vote, user: user, value: 1, votable: question) }
+
+    context 'authenticated user' do
+      context 'not author of the question' do
+        before { login(user) }
+
+        it 're-vote votes' do
+          expect {
+            post :revote, params: { id: question }, format: :json
+          }.to change(Vote, :count).by(-1)
+        end
+
+        it 'renders json with question id and rating' do
+          post :revote, params: { id: question }, format: :json
+          rendered_body = { id: question.id, rating: question.rating }.to_json
+          expect(response.body).to eq rendered_body
+        end
+      end
+
+      context 'author of the question' do
+        before { login(another_user) }
+
+        it 'dose not make re-vote' do
+          expect {
+            post :revote, params: { id: question }, format: :json
+          }.to_not change(Vote, :count)
+        end
+      end
+    end
+
+    context 'unauthenticated user' do
+      it 'dose not make re-vote' do
+        expect {
+          post :revote, params: { id: question }, format: :json
+        }.to_not change(Vote, :count)
+      end
+    end
+  end
 end
