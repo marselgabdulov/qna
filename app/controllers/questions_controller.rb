@@ -1,6 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: %i(index show)
-  before_action :load_question, only: %i(show edit update destroy)
+  before_action :load_question, only: %i(show edit update destroy publish_question)
+  after_action :publish_question, only: [:create]
 
   include Voted
 
@@ -20,7 +21,8 @@ class QuestionsController < ApplicationController
   end
 
   def create
-    @question = current_user.questions.new(question_params)
+    @question = Question.new(question_params)
+    @question.user = current_user
 
     if @question.save
       redirect_to @question, notice: 'Your question was successfully created.'
@@ -47,6 +49,10 @@ class QuestionsController < ApplicationController
 
   def load_question
     @question = Question.with_attached_files.find(params[:id])
+  end
+
+  def publish_question
+    ActionCable.server.broadcast 'questions', @question unless @question.errors.any?
   end
 
   def question_params
