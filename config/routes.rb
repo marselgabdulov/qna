@@ -15,11 +15,10 @@ Rails.application.routes.draw do
   end
 
   resources :questions, concerns: :votable do
-    resources :answers, shallow: true, concerns: :votable, only: %i(create update destroy) do
+    resources :answers, shallow: true, concerns: :votable do
       member do
         post :mark_as_best
       end
-      # post 'mark_as_best', on: :member
     end
   end
 

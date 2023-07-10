@@ -3,6 +3,9 @@
     = @question.title
   p
     = @question.body
+  p
+    span author:
+    = @question.user.email
   .question-files
     - if @question.files.attached?
       - @question.files.each do |file|
