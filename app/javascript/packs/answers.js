@@ -6,6 +6,20 @@ $(document).on('turbolinks:load', function () {
     $('form#edit-answer-' + answerId).removeClass('hidden');
   });
 
+  $('.answers').on('ajax:success', '.voting-buttons', function (e) {
+    var answer = e.detail[0];
+    $(`#answer-${answer.id} .voting-buttons`).hide();
+    $(`#answer-${answer.id} .revote`).show();
+    $(`#answer-${answer.id} .rating`).html(answer.rating);
+  });
+
+  $('.answers').on('ajax:success', '.revote', function (e) {
+    var answer = e.detail[0];
+    $(`#answer-${answer.id} .voting-buttons`).show();
+    $(`#answer-${answer.id} .revote`).hide();
+    $(`#answer-${answer.id} .rating`).html(answer.rating);
+  });
+
   $('form.new-answer')
     .on('ajax:success', function (e) {
       const answer = e.detail[0];

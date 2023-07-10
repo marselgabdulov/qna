@@ -19,13 +19,13 @@ feature 'Author of the question can choose best answer', %q{
     end
 
     scenario 'tries to mark the answer as the best', js: true do
-      find_by_id("#{first_answer.id}").click_link('Best Answer')
+      find_by_id("answer-#{first_answer.id}").click_link('Best Answer')
 
       expect(page.body).to match /#{first_answer.body}.*#{second_answer.body}/m
     end
 
     scenario 'tries to mark another answer as the best', js: true do
-      find_by_id("#{second_answer.id}").click_link('Best Answer')
+      find_by_id("answer-#{second_answer.id}").click_link('Best Answer')
 
       expect(page.body).to match /#{second_answer.body}.*#{first_answer.body}/m
     end
