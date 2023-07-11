@@ -44,4 +44,29 @@ feature 'Authorized user can create answer', %q{
 
     expect(page).to have_content "Body can't be blank"
   end
+
+  context 'multiple sessions' do
+    scenario 'answer appears on another user page', js: true do
+      Capybara.using_session('authenticated user') do
+        sign_in(user)
+        visit question_path(question)
+      end
+
+      Capybara.using_session('unauthenticated user') do
+        visit question_path(question)
+      end
+
+      Capybara.using_session('authenticated user') do
+        fill_in 'Your Answer', with: 'My answer'
+
+        click_on 'Create Answer'
+
+        expect(page).to have_content 'My answer'
+      end
+
+      Capybara.using_session('unauthenticated user') do
+        expect(page).to have_content 'My answer'
+      end
+    end
+  end
 end

@@ -4,7 +4,6 @@ $(document).on('turbolinks:load', function () {
   consumer.subscriptions.create('QuestionsChannel', {
     connected() {
       console.log('Connected to the question list');
-      this.perform('follow');
     },
 
     disconnected() {},

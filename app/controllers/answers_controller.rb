@@ -1,6 +1,7 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :load_answer, except: :create
+  after_action :publish_answer, only: [:create]
 
   include Voted
 
@@ -29,6 +30,10 @@ class AnswersController < ApplicationController
 
   def load_answer
     @answer = Answer.with_attached_files.find(params[:id])
+  end
+
+  def publish_answer
+    ActionCable.server.broadcast 'answers', @answer unless @answer.errors.any?
   end
 
   def answer_params
