@@ -9,6 +9,20 @@
     .question-rewards
       = render @question.reward
 
+.comments
+  h3 Comments:
+  .comments-list
+    - @question.comments.each do |comment|
+      = render partial: 'comments/comment', locals: { comment: comment }
+
+  div[id="#{@question.id}-comment-errors" class='comment-errors']
+  - if user_signed_in?
+    .add-comment-link
+      = link_to 'add comment', remote: true
+
+    = render partial: 'comments/form', locals: { commentable: @question }
+
+
 .answers
   h2 Answers:
   .answer-errors

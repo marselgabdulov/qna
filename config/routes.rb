@@ -20,6 +20,7 @@ Rails.application.routes.draw do
         post :mark_as_best
       end
     end
+    resources :comments, only: :create
   end
 
   delete 'attachments/:id/purge', to: 'attachments#purge', as: 'purge_attachment'

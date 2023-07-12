@@ -1,0 +1,5 @@
+$('#<%= "#{@commentable.id}" %>-comment-errors').html('<%= render 'shared/errors', resource: @comment %>');
+
+<% if @comment.persisted? %>
+  $('.comments-list').append('<%= j render @comment %>');
+<% end %>
