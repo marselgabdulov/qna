@@ -1,10 +1,9 @@
 $(document).on('turbolinks:load', function () {
-  $('.add-comment-link').on('click', function (e) {
+  $('#question').on('click', '.add-comment-link', function (e) {
     e.preventDefault();
     $(this).hide();
-    $(this)
-      .closest('.comments')
-      .find('form.comment-form')
-      .removeClass('hidden');
+    var commentableId = $(this).data('commentableId');
+    var commentableType = $(this).data('commentableType');
+    $(`#new-comment-${commentableType}-${commentableId}`).show();
   });
 });

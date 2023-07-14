@@ -18,6 +18,18 @@ div[class="card" id="answer-#{answer.id}"]
         - answer.links.each do |link|
           = render 'links/link', link: link
 
+  div id="answer-#{answer.id}-comments"
+    small
+      | Comments:
+    - if answer.comments.present?
+      = render answer.comments.order(:created_at)
+    - if user_signed_in?
+      = render 'comments/form', commentable: answer, local: Comment.new
+      .answer-add-comment-link
+        p= link_to 'add comment', '#', class: 'add-comment-link text-secondary',
+                                          data: { commentable_type: answer.class.name.downcase,
+                                                  commentable_id: answer.id }
+
   = 'Answer rating: '
   .rating= answer.rating
   - if !current_user&.author_of?(answer) && signed_in?

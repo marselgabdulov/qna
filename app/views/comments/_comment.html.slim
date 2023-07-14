@@ -1,3 +1,7 @@
 div[id="comment-#{comment.id}" class='comment']
-  p
-    =comment.body
+  .card.border-light
+    .card-body
+      = comment.body
+      br
+      small.text-primary
+        = comment.user.email

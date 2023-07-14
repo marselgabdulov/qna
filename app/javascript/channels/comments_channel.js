@@ -12,9 +12,16 @@ $(document).on('turbolinks:load', function () {
       disconnected() {},
 
       received(data) {
-        $('.comments-list').append(
-          `<div id="comment-${data.id}"><p>${data.body}</p></div>`
-        );
+        console.log(data);
+        if (gon.user_id != data.user_id) {
+          $(
+            `#${data.commentable_type.toLowerCase()}-${
+              data.commentable_id
+            }-comments`
+          ).append(
+            `<div class="card border-light"><div class="card-body">${data.body}</div></div>`
+          );
+        }
       },
     }
   );

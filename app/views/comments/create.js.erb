@@ -1,5 +1,8 @@
-$('#<%= "#{@commentable.id}" %>-comment-errors').html('<%= render 'shared/errors', resource: @comment %>');
+$('#new-comment-<%= "#{@commentable.class.name.downcase}-#{@commentable.id}" %>-errors').html('<%= render 'shared/errors', resource: @comment %>');
 
 <% if @comment.persisted? %>
-  $('.comments-list').append('<%= j render @comment %>');
+  $('#<%= "#{@commentable.class.name.downcase}-#{@commentable.id}" %>-comments').append('<%= j render @comment %>');
+  $('#new-comment-<%= "#{@commentable.class.name.downcase}-#{@commentable.id}" %>')[0].reset();
+  $('#new-comment-<%= "#{@commentable.class.name.downcase}-#{@commentable.id}" %>').hide();
+  $('.<%= "#{@commentable.class.name.downcase}" %>-add-comment-link .add-comment-link').show();
 <% end %>

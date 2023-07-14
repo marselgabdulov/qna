@@ -12,7 +12,11 @@ class CommentsController < ApplicationController
   private
 
   def find_commentable
-    @commentable = Question.find(params[:question_id])
+    if params[:question_id]
+      @commentable = Question.find(params[:question_id])
+    elsif params[:answer_id]
+      @commentable = Answer.find(params[:answer_id])
+    end
   end
 
   def comment_params
@@ -22,6 +26,11 @@ class CommentsController < ApplicationController
   def publish_comment
     return if @comment.errors.any?
 
-    ActionCable.server.broadcast "question_#{@commentable.id}-comments", @comment
+    case @commentable
+    when Question
+      ActionCable.server.broadcast "question_#{@commentable.id}-comments", @comment
+    when Answer
+      ActionCable.server.broadcast "question_#{@commentable.question.id}-comments", @comment
+    end
   end
 end

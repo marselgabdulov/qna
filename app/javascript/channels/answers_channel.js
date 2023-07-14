@@ -9,9 +9,11 @@ $(document).on('turbolinks:load', function () {
     disconnected() {},
 
     received(data) {
-      $('.answers').append(
-        `<div id="answer-${data.id}"><p>${data.body}</p></div>`
-      );
+      if (gon.user_id != data.user_id) {
+        $('.answers').append(
+          `<div id="answer-${data.id}"><p>${data.body}</p></div>`
+        );
+      }
     },
   });
 });

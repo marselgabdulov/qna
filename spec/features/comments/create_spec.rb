@@ -16,18 +16,16 @@ feature 'Anthenticated user can create comment to the question', %q{
     end
 
     scenario 'tries to add valid comment' do
-      fill_in 'Your Comment', with: 'My Comment'
-      click_on 'Add Comment'
+      fill_in :comment_body, with: 'My Comment'
+      click_on 'Post Your Comment'
 
       expect(page).to have_content 'My Comment'
     end
 
     scenario 'tries to add invalid comment' do
-      click_on 'Add Comment'
+      click_on 'Post Your Comment'
 
-      within '.comments' do
-        expect(page).to have_content "Body can't be blank"
-      end
+      expect(page).to have_content "Body can't be blank"
     end
   end
 
@@ -44,9 +42,9 @@ feature 'Anthenticated user can create comment to the question', %q{
 
       Capybara.using_session('authenticated user') do
         click_on 'add comment'
-        fill_in 'Your Comment', with: 'text text text'
+        fill_in :comment_body, with: 'text text text'
 
-        click_on 'Add Comment'
+        click_on 'Post Your Comment'
 
         expect(page).to have_content 'text text text'
       end

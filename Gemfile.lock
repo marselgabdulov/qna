@@ -118,6 +118,11 @@ GEM
     ffi (1.15.5-x86-mingw32)
     globalid (1.1.0)
       activesupport (>= 5.0)
+    gon (6.4.0)
+      actionpack (>= 3.0.20)
+      i18n (>= 0.7)
+      multi_json
+      request_store (>= 1.0)
     i18n (1.14.1)
       concurrent-ruby (~> 1.0)
     jbuilder (2.11.5)
@@ -143,6 +148,7 @@ GEM
     minitest (5.18.1)
     msgpack (1.7.1)
     msgpack (1.7.1-java)
+    multi_json (1.15.0)
     net-imap (0.3.6)
       date
       net-protocol
@@ -218,6 +224,8 @@ GEM
       ffi (~> 1.0)
     redis (4.8.1)
     regexp_parser (2.8.1)
+    request_store (1.5.1)
+      rack (>= 1.4)
     responders (3.1.0)
       actionpack (>= 5.2)
       railties (>= 5.2)
@@ -329,6 +337,7 @@ DEPENDENCIES
   cocoon
   devise
   factory_bot_rails
+  gon
   jbuilder (~> 2.7)
   listen (~> 3.3)
   pg (~> 1.1)
