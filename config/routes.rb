@@ -19,10 +19,14 @@ Rails.application.routes.draw do
       member do
         post :mark_as_best
       end
+      resources :comments, only: :create
     end
+    resources :comments, only: :create
   end
 
   delete 'attachments/:id/purge', to: 'attachments#purge', as: 'purge_attachment'
 
   resources :rewards, only: :index
+
+  mount ActionCable.server => '/cable'
 end

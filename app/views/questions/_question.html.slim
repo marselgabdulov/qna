@@ -1,4 +1,4 @@
-.question
+div[id='question' class='question' data-question-id="#{@question.id}"]
   h1
     = @question.title
   p
@@ -48,3 +48,29 @@
     .question-errors
       = render 'shared/errors', resource: @question
     = render 'edit_form'
+
+  div[id="question-#{@question.id}-comments"]
+    h3 Comments:
+    .comments-list
+    - if @question.comments.present?
+      = render @question.comments.order(:created_at)
+    - if user_signed_in?
+      = render 'comments/form', commentable: @question, local: Comment.new
+      .question-add-comment-link
+        p= link_to 'add comment', '#', class: 'add-comment-link text-secondary', data: { commentable_type: @question.class.name.downcase, commentable_id: @question.id }, remote: true
+
+  #reward
+    - if user_signed_in?
+      = link_to 'My rewards', rewards_path
+
+    - if @question.reward.present?
+      p Rewards:
+      .question-rewards
+        = render @question.reward
+
+  .answers
+    h3 Answers:
+    .answer-errors
+      = render 'shared/errors', resource: @answer
+    - if @question.answers.any?
+      = render @question.answers.sort_by_best

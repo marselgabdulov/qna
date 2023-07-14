@@ -1,0 +1,5 @@
+div id="new-comment-#{commentable.class.name.downcase}-#{commentable.id}-errors"
+= form_with model: [commentable, local], class: 'hidden', html: { id: "new-comment-#{commentable.class.name.downcase}-#{commentable.id}" }, local: false do |f|
+  .form-group
+    = f.text_area :body, class: 'form-control', placeholder: 'Enter your comment here...'
+    = f.submit 'Post Your Comment', class: 'btn btn-outline-secondary btn-sm btn-block mb-2 mt-2'

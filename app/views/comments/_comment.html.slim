@@ -1,0 +1,7 @@
+div[id="comment-#{comment.id}" class='comment']
+  .card.border-light
+    .card-body
+      = comment.body
+      br
+      small.text-primary
+        = comment.user.email
