@@ -1,0 +1,9 @@
+= render 'shared/errors', resource: @user
+
+= form_with scope: :user, url: noemail_signup_path do |f|
+  p
+   = f.label :email
+   br
+   = f.text_field :email, class: "form-control"
+
+  p= f.submit 'Save', class: 'btn btn-primary mt-3'

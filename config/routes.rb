@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: 'oauth_callbacks' }
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
 
   root to: 'questions#index'
+
+  post 'users/noemail_signup', to: 'users#noemail_signup', as: :noemail_signup
 
   concern :votable do
     member do
