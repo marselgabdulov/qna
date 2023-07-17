@@ -65,4 +65,12 @@ RSpec.describe FindForOauthService do
       end
     end
   end
+
+  context 'oauth service does not return email' do
+    let(:auth) { OmniAuth::AuthHash.new(provider: 'facebook', uid: '123456', info: { email: nil }) }
+
+    it 'returns nil' do
+      expect(subject.call).to be_nil
+    end
+  end
 end

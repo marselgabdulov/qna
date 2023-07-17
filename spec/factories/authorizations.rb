@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :authorization do
-    user { nil }
-    provider { "MyString" }
-    uid { "MyString" }
+    user factory: :user
+    provider { "MyProvider" }
+    uid { "MyUid" }
   end
 end

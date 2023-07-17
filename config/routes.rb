@@ -6,6 +6,8 @@ Rails.application.routes.draw do
 
   root to: 'questions#index'
 
+  post 'users/noemail_signup', to: 'users#noemail_signup', as: :noemail_signup
+
   concern :votable do
     member do
       post :vote_up
