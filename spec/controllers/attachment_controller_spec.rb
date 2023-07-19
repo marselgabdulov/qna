@@ -3,12 +3,13 @@ require 'rails_helper'
 RSpec.describe AttachmentsController, type: :controller do
   let(:user) { create(:user) }
   let(:question){ create(:question, :with_file, user: user) }
+  let(:request_data) { delete :destroy, params: { id: question.files.last.id }, format: :js }
   before { sign_in(user) }
 
-  describe 'DELETE #purge' do
+  describe 'DELETE #destroy' do
     it 'deletes attachment file' do
       expect do
-        delete :purge, params: { id: question.files.last.id }, format: :js
+        request_data
         question.reload
       end.to change(question.files, :count).by(-1)
     end

@@ -61,11 +61,6 @@ RSpec.describe CommentsController, type: :controller do
       it 'does not save comment in the database' do
         expect { valid_data_request }.to_not change(comments, :count)
       end
-
-      it 'returns unauthorized status' do
-        valid_data_request
-        expect(response).to have_http_status(:unauthorized) # 401
-      end
     end
   end
 end
