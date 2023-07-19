@@ -85,6 +85,7 @@ GEM
       msgpack (~> 1.2)
     builder (3.2.4)
     byebug (11.1.3)
+    cancancan (3.5.0)
     capybara (3.39.2)
       addressable
       matrix
@@ -377,6 +378,7 @@ DEPENDENCIES
   aws-sdk-s3
   bootsnap (>= 1.4.4)
   byebug
+  cancancan
   capybara (>= 3.26)
   capybara-email
   cocoon

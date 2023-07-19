@@ -5,11 +5,8 @@ div[class="card" id="answer-#{answer.id}"]
     = answer.user.email
   .answer-files
     - if answer.files.attached?
-      - answer.files.each do |file|
-        .file-container
-          = link_to file.filename.to_s, url_for(file)
-          - if current_user == answer.user
-            = link_to 'delete file', purge_attachment_path(file), class: 'remove-file-link', method: :delete, remote: true
+        | Files:
+        = render partial: 'attachments/attachment', collection: answer.files
 
   - if answer.links.any?
     .links
@@ -32,27 +29,21 @@ div[class="card" id="answer-#{answer.id}"]
 
   = 'Answer rating: '
   .rating= answer.rating
-  - if !current_user&.author_of?(answer) && signed_in?
-    div class="voting-buttons #{hide_button_for(answer)}"
-      = link_to 'Vote Up', vote_up_answer_path(answer),
-                      method: :post,
-                      remote: true
-      br
-      = link_to 'Vote Down', vote_down_answer_path(answer),
-                        method: :post,
-                        remote: true
-
-    = link_to 'Revote', revote_answer_path(answer),
-                        method: :post,
-                        remote: true,
-                        class: "revote #{show_button_for(answer)}"
+  div[class="voting-buttons #{hide_button_for(answer)}"]
+    - if can?(:vote_up, answer)
+      = link_to 'Vote Up', vote_up_answer_path(answer), method: :post, remote: true
+    - if can?(:vote_down, answer)
+      = link_to 'Vote Down', vote_down_answer_path(answer), method: :post, remote: true
+  - if can?(:revote, answer)
+    = link_to 'Revote', revote_answer_path(answer), method: :post, remote: true, class: "revote #{show_button_for(answer)}"
 
   .card-footer
     .actions-container
-      - if current_user == answer.user
+      - if can?(:update, answer)
         = link_to 'Edit Answer', '#', class: 'edit-answer-link', data: { answer_id: answer.id }
+      - if can?(:destroy, answer)
         = link_to 'Delete Answer', answer, class: 'remove-answer-link', method: :delete, remote: true
-      - if current_user == answer.question.user
+      - if can?(:mark_as_best, answer)
         = link_to 'Best Answer', mark_as_best_answer_path(answer), method: :post, data: { answer_id: answer.id }, remote: true
 
 = form_with model: answer, class: 'form hidden', html: { id: "edit-answer-#{answer.id}"  }, local: false do |f|

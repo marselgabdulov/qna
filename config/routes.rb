@@ -26,7 +26,7 @@ Rails.application.routes.draw do
     resources :comments, only: :create
   end
 
-  delete 'attachments/:id/purge', to: 'attachments#purge', as: 'purge_attachment'
+  resources :attachments, only: :destroy
 
   resources :rewards, only: :index
 
