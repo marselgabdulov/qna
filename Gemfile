@@ -28,26 +28,20 @@ gem 'redis', '~> 4.0'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.4', require: false
 gem 'devise'
-
 gem 'aws-sdk-s3', require: false
-
 gem 'slim-rails'
-
 gem 'cocoon'
-
 gem 'validate_url'
-
 gem 'gon'
-
 gem 'omniauth'
 gem 'omniauth-github'
 gem 'omniauth-vkontakte'
 gem 'omniauth-rails_csrf_protection'
 gem 'cancancan'
-
 gem 'letter_opener'
-
 gem 'doorkeeper'
+gem 'active_model_serializers', '~> 0.10'
+gem 'oj'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

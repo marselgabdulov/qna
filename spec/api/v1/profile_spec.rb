@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe 'Profiles API', type: :request do
   let(:headers) { { 'CONTENT_TYPE': 'application/json', 'ACCEPT': 'application/json' } }
+
   describe 'GET /api/v1/profiles/me' do
     context 'unauthorized' do
       it 'returns 401 status if there is no access_token' do
@@ -26,7 +27,7 @@ describe 'Profiles API', type: :request do
         expect(response).to be_successful
       end
 
-      it 'returns all pulic fields' do
+      it 'returns all public fields' do
         %w[id email admin created_at updated_at].each do |attr|
           expect(json[attr]).to eq me.send(attr).as_json
         end
