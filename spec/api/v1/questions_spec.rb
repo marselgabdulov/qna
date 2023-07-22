@@ -2,6 +2,7 @@ require 'rails_helper'
 
 describe 'Questions API', type: :request do
   let(:headers) { { 'CONTENT_TYPE': 'application/json', 'ACCEPT': 'application/json' } }
+  let(:access_token) { create(:access_token) }
 
   describe 'GET /api/v1/questions' do
     let(:api_path) { '/api/v1/questions' }
@@ -9,7 +10,6 @@ describe 'Questions API', type: :request do
     it_behaves_like 'API Authorizable'
 
     context 'authorized' do
-      let(:access_token) { create(:access_token) }
       let!(:questions) { create_list(:question, 2) }
       let(:question) { questions.first }
       let(:question_response) { json['questions'].first }
@@ -52,6 +52,73 @@ describe 'Questions API', type: :request do
         it 'returns all public fields' do
           %w[id body created_at updated_at].each do |attr|
             expect(answer_response[attr]).to eq answer.send(attr).as_json
+          end
+        end
+      end
+    end
+  end
+
+  describe 'GET /api/v1/questions/:id' do
+    let(:question) { create(:question) }
+    let(:api_path) { "/api/v1/questions/#{question.id}" }
+
+    it_behaves_like 'API Authorizable' do
+      let(:method) { :get }
+    end
+
+    context 'authorized' do
+      let(:question_response) { json['question'] }
+      let!(:comment) { create(:comment, commentable: question) }
+      let!(:link) { create(:link, :for_question, linkable: question) }
+
+      before do
+        question.files.attach(create_file_blob)
+
+        get api_path, params: { access_token: access_token.token }, headers: headers
+      end
+
+      it_behaves_like 'Status Successful'
+
+      it 'returns all public fields' do
+        %w[id user_id title body created_at updated_at].each do |attr|
+          expect(question_response[attr]).to eq question.send(attr).as_json
+        end
+      end
+
+      it 'contains user object' do
+        expect(question_response['user']['id']).to eq question.user.id
+      end
+
+      describe 'files' do
+        it 'returns list of files' do
+          expect(question_response['files_url'].size).to eq 1
+        end
+      end
+
+      describe 'links' do
+        let(:link_json) { question_response['links'].first }
+
+        it 'returns list of links' do
+          expect(question_response['links'].size).to eq 1
+        end
+
+        it 'returns all public fields' do
+          %w[id name url linkable_type linkable_id created_at updated_at].each do |attr|
+            expect(link_json[attr]).to eq link.send(attr).as_json
+          end
+        end
+      end
+
+      describe 'comments' do
+        let(:comment_json) { question_response['comments'].first }
+
+        it 'returns list of comments' do
+          expect(question_response['comments'].size).to eq 1
+        end
+
+        it 'returns all public fields' do
+          %w[id commentable_type commentable_id user_id body created_at updated_at].each do |attr|
+            expect(comment_json[attr]).to eq comment.send(attr).as_json
           end
         end
       end
