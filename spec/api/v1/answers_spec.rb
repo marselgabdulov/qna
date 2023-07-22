@@ -79,6 +79,12 @@ describe 'Questions API', type: :request do
         expect(answer_json['user']['id']).to eq answer.user.id
       end
 
+      describe 'files' do
+        it 'returns list of files' do
+          expect(answer_json['files_url'].size).to eq 1
+        end
+      end
+
       describe 'links' do
         let(:link_json) { answer_json['links'].first }
 
