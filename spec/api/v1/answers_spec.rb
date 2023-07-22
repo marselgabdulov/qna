@@ -115,4 +115,184 @@ describe 'Questions API', type: :request do
     end
   end
 
+  describe 'POST /api/v1/questions/:id/answers' do
+    let(:api_path) { "/api/v1/questions/#{question.id}/answers" }
+
+    it_behaves_like 'API Authorizable' do
+      let(:method) { :post }
+    end
+
+    context 'authorized' do
+      let(:answer_json) { json['answer'] }
+      let(:answers) { question.answers }
+
+      context 'with valid attributes' do
+        let(:valid_data_request) do
+          post api_path, params: { access_token: access_token.token,
+                                   question_id: question,
+                                   answer: attributes_for(:answer) }, headers: headers
+        end
+
+        it 'returns success status' do
+          valid_data_request
+          expect(response).to be_successful
+        end
+
+        it 'saves a new answer in the database' do
+          expect { valid_data_request }.to change(answers, :count).by(1)
+        end
+
+        it 'returns all public fields' do
+          valid_data_request
+          %w[id user_id body created_at updated_at].each do |attr|
+            expect(answer_json[attr]).to eq assigns(:answer).send(attr).as_json
+          end
+        end
+      end
+
+      context 'with invalid attributes' do
+        let(:invalid_data_request) do
+          post api_path, params: { access_token: access_token.token,
+                                   question_id: question,
+                                   answer: attributes_for(:answer, :invalid) }, headers: headers
+        end
+
+        it 'returns unprocessable_entity status' do
+          invalid_data_request
+          expect(response).to have_http_status(:unprocessable_entity)
+        end
+
+        it 'does not save answer in the database' do
+          expect { invalid_data_request }.to_not change(answers, :count)
+        end
+
+        it 'returns errors message' do
+          invalid_data_request
+          expect(json['errors'].first).to eq "Body can't be blank"
+        end
+      end
+    end
+  end
+
+  describe 'PATCH /api/v1/answers/:id' do
+    let(:answer) { create(:answer, user: user, question: question) }
+    let(:api_path) { "/api/v1/answers/#{answer.id}" }
+
+    it_behaves_like 'API Authorizable' do
+      let(:method) { :patch }
+
+      context 'authorized' do
+        let(:answer_json) { json['answer'] }
+
+        context 'author of the answer' do
+          context 'with valid attributes' do
+            before do
+              patch api_path, params: { access_token: access_token.token,
+                                        id: answer,
+                                        answer: { body: 'NewBody' } }, headers: headers
+            end
+
+            it_behaves_like 'Status Successful'
+
+            it 'changes answer attributes' do
+              expect(answer_json['body']).to eq assigns(:answer).body
+            end
+          end
+
+          context 'with invalid attributes' do
+            let(:invalid_data_request) do
+              patch api_path, params: { access_token: access_token.token,
+                                        id: answer,
+                                        answer: attributes_for(:answer, :invalid) }, headers: headers
+            end
+
+            it 'returns unprocessable entity status' do
+              invalid_data_request
+              expect(response).to have_http_status(:unprocessable_entity)
+            end
+
+            it 'does not change answer attributes' do
+              expect { invalid_data_request }.to_not change(answer, :body)
+            end
+
+            it 'returns errors message' do
+              invalid_data_request
+              expect(json['errors'].first).to eq "Body can't be blank"
+            end
+          end
+        end
+
+        context 'not author of the answer' do
+          let(:invalid_data_request) do
+            patch api_path, params: { access_token: another_access_token.token,
+                                      id: answer,
+                                      answer: { body: 'NewBody' } }, headers: headers
+          end
+
+          it 'returns forbidden status' do
+            invalid_data_request
+            expect(response).to have_http_status(:forbidden)
+          end
+
+          it 'does not change answer attributes' do
+            expect { invalid_data_request }.to_not change(answer, :body)
+          end
+
+          it 'returns errors message' do
+            invalid_data_request
+            expect(json['errors']).to eq 'You are not authorized to access this page.'
+          end
+        end
+      end
+    end
+  end
+
+  describe 'DELETE /api/v1/answers/:id' do
+    let!(:answer) { create(:answer, user: user, question: question) }
+    let(:answers) { question.answers }
+    let(:api_path) { "/api/v1/answers/#{answer.id}" }
+
+    it_behaves_like 'API Authorizable' do
+      let(:method) { :delete }
+    end
+
+    context 'authorized' do
+      context 'author of the answer' do
+        let(:valid_data_request) do
+          delete api_path, params: { access_token: access_token.token,
+                                     id: answer }, headers: headers
+        end
+
+        it 'deletes the question from the database' do
+          expect { valid_data_request }.to change(answers, :count).by(-1)
+        end
+
+        it 'returns no content status' do
+          valid_data_request
+          expect(response).to have_http_status(:no_content)
+        end
+      end
+
+      context 'not author of the answer' do
+        let(:invalid_data_request) do
+          delete api_path, params: { access_token: another_access_token.token,
+                                     id: answer }, headers: headers
+        end
+
+        it 'returns forbidden status' do
+          invalid_data_request
+          expect(response).to have_http_status(:forbidden)
+        end
+
+        it 'does not delete answer from the database' do
+          expect { invalid_data_request }.to_not change(answers, :count)
+        end
+
+        it 'returns errors message' do
+          invalid_data_request
+          expect(json['errors']).to eq 'You are not authorized to access this page.'
+        end
+      end
+    end
+  end
 end
