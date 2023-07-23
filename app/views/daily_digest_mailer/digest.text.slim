@@ -1,3 +1,9 @@
-' DailyDigest#digest
+' New questions:
 = "\r\n" * 2
-' #{@greeting}, find me in app/views/daily_digest_mailer/digest.text.slim
+- if @questions.empty?
+  ' There were no new questions today :(
+  = "\r\n" * 2
+- else
+  - @questions.each do |question|
+    ' #{question.title}
+    = "\r\n" * 2
