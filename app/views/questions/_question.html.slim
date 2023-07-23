@@ -1,6 +1,8 @@
 div[id='question' class='question' data-question-id="#{@question.id}"]
   h1
     = @question.title
+  - if can?(:create, Subscription)
+    = link_to 'Subscribe', question_subscriptions_path(@question), method: :post, remote: true, class: "question-subscribe-link #{'hidden' if current_user&.subscribed_to?(@question)}"
   p
     = @question.body
   p

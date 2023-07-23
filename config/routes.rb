@@ -1,11 +1,14 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
+  use_doorkeeper
+
   authenticate :user, lambda { |u| u.admin? } do
     mount Sidekiq::Web => '/sidekiq'
   end
 
-  use_doorkeeper
+  mount ActionCable.server => '/cable'
+
   devise_for :users, controllers: { omniauth_callbacks: 'oauth_callbacks' }
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
@@ -31,13 +34,12 @@ Rails.application.routes.draw do
       resources :comments, only: :create
     end
     resources :comments, only: :create
+    resources :subscriptions, shallow: true, only: %i[create]
   end
 
   resources :attachments, only: :destroy
 
   resources :rewards, only: :index
-
-  mount ActionCable.server => '/cable'
 
   namespace :api do
     namespace :v1 do
