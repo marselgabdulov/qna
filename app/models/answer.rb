@@ -11,6 +11,8 @@ class Answer < ApplicationRecord
 
   scope :sort_by_best, -> { order(best: :desc) }
 
+  after_commit :send_notice, on: :create
+
   def mark_as_best
 		transaction do
 			self.class.where(question_id: self.question_id).update_all(best: false)
@@ -18,4 +20,10 @@ class Answer < ApplicationRecord
 			update(best: true)
 		end
 	end
+
+  private
+
+  def send_notice
+    NewAnswerNoticeJob.perform_later(self)
+  end
 end

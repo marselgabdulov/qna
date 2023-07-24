@@ -28,6 +28,7 @@ class Ability
 
     can :me, User
     can :create, [Question, Answer, Comment]
+    can %i[create destroy], Subscription
     can %i[update destroy], [Question, Answer], user_id: user.id
     can %i[vote_up vote_down revote], [Question, Answer] do |votable|
       votable.user_id != user.id

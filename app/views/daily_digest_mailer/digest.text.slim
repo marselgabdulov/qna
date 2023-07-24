@@ -1,0 +1,9 @@
+' New questions:
+= "\r\n" * 2
+- if @questions.empty?
+  ' There were no new questions today :(
+  = "\r\n" * 2
+- else
+  - @questions.each do |question|
+    ' #{question.title}
+    = "\r\n" * 2
