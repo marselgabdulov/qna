@@ -9,4 +9,13 @@ RSpec.describe Answer, type: :model do
   it { should belong_to :question }
 
   it { should validate_presence_of :body }
+
+  describe '#send_notice' do
+    let(:answer) { build(:answer) }
+
+    it 'calls NewAnswerNoticeJob' do
+      expect(NewAnswerNoticeJob).to receive(:perform_later).with(answer)
+      answer.save!
+    end
+  end
 end

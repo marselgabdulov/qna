@@ -42,5 +42,10 @@ describe Ability do
     context 'Comment' do
       it { should be_able_to :create, Comment }
     end
+
+    context 'subscriptions' do
+      it { should be_able_to :create, Subscription }
+      it { should be_able_to :destroy, Subscription }
+    end
   end
 end
