@@ -1,0 +1,13 @@
+li.list-group-item
+  .secondary-info-question.text-right
+    small #{resource.rating} votes
+    br
+    small #{pluralize(resource.answers.count, 'answer')}
+    br
+    small #{pluralize(resource.comments.count, 'comment')}
+  = link_to "Q: #{resource.title}", question_path(resource)
+  br
+  = resource.body.truncate(100)
+  .creation-info-question.text-right
+    small.text-secondary asked #{creation_time(resource)} by
+    small.text-info #{resource.user.email}

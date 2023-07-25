@@ -14,4 +14,8 @@ module ApplicationHelper
   def show_sub_button_for(resource)
     current_user&.subscribed?(resource) ? '' : 'hidden'
   end
+
+  def creation_time(resource)
+    resource.created_at.to_s(:short)
+  end
 end

@@ -1,12 +1,16 @@
 header.header
   ul.nav.justify-content-end
-    - if current_user
-      li
-        = current_user.email
-      li
-        = link_to 'Log Out', destroy_user_session_path, method: :delete
+    .nav-item.ml-4
+      = render 'search/form'
+    - if user_signed_in?
+      span.navbar-text.ml-auto.mr-2
+        = "Welcome #{current_user.email}!"
+      li.nav-item.active.mr-2
+        = link_to 'My Rewards', rewards_path, class: 'nav-link'
+      li.nav-item
+        = link_to 'Log Out', destroy_user_session_path, method: :delete, class: 'btn btn-outline-danger'
     - else
-      li
-        = link_to 'Log In', new_user_session_path
-      li
-        = link_to 'Sign Up', new_user_registration_path
+      li.nav-item.mr-2
+        = link_to 'Log In', new_user_session_path, class: 'btn btn-outline-info'
+      li.nav-item
+        = link_to 'Sign Up', new_user_registration_path, class: 'btn btn-primary'

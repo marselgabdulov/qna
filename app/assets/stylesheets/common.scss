@@ -1,3 +1,32 @@
 .hidden {
   display: none
 }
+
+.actions-container {
+  display: inline-block;
+
+  * {
+    padding-right: 7px;
+  }
+
+  :last-child {
+    padding-right: 0;
+  }
+}
+
+hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border: 0;
+  border-top: 1px solid grey;
+}
+
+.reward-image-container {
+  width: 100px;
+  height: 100px;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}

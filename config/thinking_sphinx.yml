@@ -1,0 +1,5 @@
+development:
+  skip_docinfo: true
+
+test:
+  mysql41: 9307

@@ -1,0 +1,7 @@
+li.list-group-item
+  = commentable_link(resource)
+  br
+  = resource.body.truncate(50)
+  .creation-comment-info.text-right
+    small.text-secondary commented #{creation_time(resource)} by
+    small.text-info #{resource.user.email}

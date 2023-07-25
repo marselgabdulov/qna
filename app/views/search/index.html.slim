@@ -1,0 +1,13 @@
+.row.mt-3
+  .col.col-md-12
+    h2.text-center.mt-3
+      strong Searching results
+    small.text-secondary= "Results for #{@query.empty? ? '...' : @query} Tag ##{@resource}"
+    = render 'search/form'
+    h4.mt-3 #{pluralize(@results.count, 'result')}
+    - if @results.present?
+      - @results.each do |result|
+        = render "search/#{result.class.name.underscore}", resource: result
+    - else
+      h3.text-center Nothing found
+    = will_paginate @results, renderer: WillPaginate::ActionView::BootstrapLinkRenderer
