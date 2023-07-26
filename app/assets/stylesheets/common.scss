@@ -2,6 +2,20 @@
   display: none
 }
 
+.nav-item {
+  margin-left: 10px;
+}
+
+.form-inline {
+  display: flex;
+  flex-direction: row;
+  width: auto;
+
+  * {
+    margin-left: 10px;
+  }
+}
+
 .actions-container {
   display: inline-block;
 
