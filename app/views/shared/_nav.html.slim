@@ -1,21 +1,21 @@
-nav.navbar.navbar-expand-lg.navbar-light.bg-light.border-bottom.shadow-sm
-  .container
+nav.navbar.navbar-expand-lg.navbar-light.bg-light
+  .container-fluid
     .navbar-brand
       = link_to 'Q&A', root_path, class: 'nav-link'
-    button.navbar-toggler.collapsed aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" data-target="#navbar" data-toggle="collapse" type="button"
+    button.navbar-toggler[type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"]
       span.navbar-toggler-icon
-    .navbar-collapse.collapse id='navbar'
-      ul.navbar-nav.mx-auto
+    .collapse.navbar-collapse. id='navbarSupportedContent'
+      ul.navbar-nav.me-auto.mb-2.mb-lg-0
         - if user_signed_in?
-          li.navbar-text.mr-1
+          li.nav-item.navbar-text.mr-1
             = "Welcome #{current_user.email}!"
           li.nav-item
-            = link_to 'My Rewards', rewards_path, class: 'btn btn-outline-info my-1 my-sm-0 mr-1'
+            = link_to 'My Rewards', rewards_path, class: 'btn btn-outline-info'
           li.nav-item
             = link_to 'Log out', destroy_user_session_path, method: :delete, class: 'btn btn-outline-danger my-2 my-sm-0'
         - else
           li.nav-item
-            = link_to 'Log in', new_user_session_path, class: 'btn btn-outline-info my-1 my-sm-0 mr-2'
+            = link_to 'Log in', new_user_session_path, class: 'btn btn-outline-info'
           li.nav-item
-            = link_to 'Sign up', new_user_registration_path, class: 'btn btn-primary my-1 my-sm-0'
+            = link_to 'Sign up', new_user_registration_path, class: 'btn btn-primary'
       = render 'search/form'

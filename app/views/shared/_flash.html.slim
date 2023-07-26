@@ -1,0 +1,7 @@
+- flash.each do |key, msg|
+  - bs_class = key == 'alert' ? 'danger' : 'primary'
+  - bs_role = key == 'alert' ? 'danger' : 'primary'
+
+  div class=("alert alert-#{bs_class} alert-dismissable fade show")[role="alert"]
+    = msg
+    button.btn-close[type="button" data-bs-dismiss="alert" aria-label="Close"]
