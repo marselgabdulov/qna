@@ -41,6 +41,8 @@ Rails.application.routes.draw do
 
   resources :rewards, only: :index
 
+  get 'search', to: 'search#index'
+
   namespace :api do
     namespace :v1 do
       resources :profiles, only: [:index] do

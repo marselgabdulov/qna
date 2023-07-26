@@ -40,3 +40,6 @@ yarn-debug.log*
 /spec/support/assets/*
 
 dump.rdb
+
+config/*.sphinx.conf
+db/sphinx
