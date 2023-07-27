@@ -14,7 +14,7 @@
 # end
 #
 every 1.days do
-  runner "DailyDigestJob.peform_now"
+  runner "DailyDigestJob.perform_now"
 end
 
 every 30.minutes do
