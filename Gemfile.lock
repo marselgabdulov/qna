@@ -70,8 +70,8 @@ GEM
     airbrussh (1.4.1)
       sshkit (>= 1.6.1, != 1.7.0)
     aws-eventstream (1.2.0)
-    aws-partitions (1.792.0)
-    aws-sdk-core (3.179.0)
+    aws-partitions (1.793.0)
+    aws-sdk-core (3.180.0)
       aws-eventstream (~> 1, >= 1.0.2)
       aws-partitions (~> 1, >= 1.651.0)
       aws-sigv4 (~> 1.5)
@@ -199,7 +199,7 @@ GEM
     mini_portile2 (2.8.4)
     mini_racer (0.6.4)
       libv8-node (~> 16.19.0.0)
-    minitest (5.18.1)
+    minitest (5.19.0)
     msgpack (1.7.2)
     msgpack (1.7.2-java)
     multi_json (1.15.0)
@@ -207,7 +207,7 @@ GEM
     mustermann (3.0.0)
       ruby2_keywords (~> 0.0.1)
     mysql2 (0.5.5)
-    net-imap (0.3.6)
+    net-imap (0.3.7)
       date
       net-protocol
     net-pop (0.1.2)
@@ -318,7 +318,7 @@ GEM
     responders (3.1.0)
       actionpack (>= 5.2)
       railties (>= 5.2)
-    rexml (3.2.5)
+    rexml (3.2.6)
     riddle (2.4.3)
     rspec-core (3.12.2)
       rspec-support (~> 3.12.0)
@@ -428,19 +428,19 @@ GEM
       railties (>= 5.2)
       semantic_range (>= 2.3.0)
     websocket (1.2.9)
-    websocket-driver (0.7.5)
+    websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
-    websocket-driver (0.7.5-java)
+    websocket-driver (0.7.6-java)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     whenever (1.0.0)
       chronic (>= 0.6.3)
-    will_paginate (4.0.0)
-    will_paginate-bootstrap4 (0.0.1)
-      will_paginate
+    will_paginate (3.3.1)
+    will_paginate-bootstrap4 (0.2.2)
+      will_paginate (~> 3.0, >= 3.0.0)
     xpath (3.2.0)
       nokogiri (~> 1.8)
-    zeitwerk (2.6.8)
+    zeitwerk (2.6.9)
 
 PLATFORMS
   java
@@ -471,7 +471,7 @@ DEPENDENCIES
   jbuilder (~> 2.7)
   letter_opener
   listen (~> 3.3)
-  mini_racer
+  mini_racer (>= 0.2.1)
   mysql2 (~> 0.5.0)
   oj
   omniauth
