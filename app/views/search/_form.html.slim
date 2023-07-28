@@ -1,4 +1,7 @@
-= form_with url: search_path, method: :get, local: true, class: 'form-inline' do |f|
-  = f.text_field :query, class: 'form-control mr-sm-2 col-md-6', placeholder: 'Search'
-  = f.select :resource, SearchService::RESOURCES, {}, class: 'form-control mr-sm-2'
-  = f.submit 'Search', class: 'btn btn-outline-primary my-2 my-sm-0'
+= form_with url: search_path, method: :get, local: true, class: 'row g-3 align-items-center' do |f|
+  .col-auto
+    = f.text_field :query, class: 'form-control', placeholder: 'Search'
+  .col-auto
+    = f.select :resource, SearchService::RESOURCES, {}, class: 'form-control'
+  .col-auto
+    = f.submit 'Search', class: 'btn btn-outline-primary'

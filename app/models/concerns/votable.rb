@@ -5,7 +5,7 @@ module Votable
     has_many :votes, as: :votable, dependent: :destroy
   end
 
-  def rating
+  def raiting
     votes.sum(:value)
   end
 

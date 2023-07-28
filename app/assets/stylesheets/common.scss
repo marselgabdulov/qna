@@ -2,16 +2,29 @@
   display: none
 }
 
-.actions-container {
-  display: inline-block;
+.container {
+}
+
+.nav-item {
+  margin-left: 10px;
+}
+
+.form-inline {
+  display: flex;
+  flex-direction: row;
+  width: auto;
 
   * {
-    padding-right: 7px;
+    margin-left: 10px;
   }
+}
 
-  :last-child {
-    padding-right: 0;
-  }
+.inline-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
 }
 
 hr {

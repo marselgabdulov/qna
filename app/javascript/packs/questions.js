@@ -19,13 +19,13 @@ $(document).on('turbolinks:load', function () {
     const question = e.detail[0];
     $(`.question .voting-buttons`).hide();
     $(`.question .revote`).show();
-    $(`.question .rating`).html(question.rating);
+    $(`.question .raiting`).html(question.raiting);
   });
 
   $('.question').on('ajax:success', '.revote', function (e) {
     const question = e.detail[0];
     $(`.question .voting-buttons`).show();
     $(`.question .revote`).hide();
-    $(`.question .rating`).html(question.rating);
+    $(`.question .raiting`).html(question.raiting);
   });
 });

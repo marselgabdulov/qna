@@ -42,7 +42,15 @@ RSpec.configure do |config|
   config.include OmniauthMacros
   config.include ApiHelpers, type: :request
 
-  Capybara.javascript_driver = :selenium_chrome_headless
+  Capybara.register_driver :firefox_headless do |app|
+    options = ::Selenium::WebDriver::Firefox::Options.new
+    options.args << '--headless'
+    options.args << '--width=1920'
+    options.args << '--height=1080'
+    Capybara::Selenium::Driver.new(app, browser: :firefox, options: options)
+  end
+
+  Capybara.javascript_driver = :firefox_headless
 
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"

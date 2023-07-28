@@ -1929,6 +1929,16 @@ boolbase@^1.0.0, boolbase@~1.0.0:
   resolved "https://registry.yarnpkg.com/boolbase/-/boolbase-1.0.0.tgz#68dff5fbe60c51eb37725ea9e3ed310dcc1e776e"
   integrity sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==
 
+bootstrap4@^0.0.1-security:
+  version "0.0.1-security"
+  resolved "https://registry.yarnpkg.com/bootstrap4/-/bootstrap4-0.0.1-security.tgz#598920d54afcb2ae3ad7351acabc57e3942d9c49"
+  integrity sha512-ZahLXPrm/csSTx4Wk6k7ytPnMCW+9pLv7KskCQwYQFIDo292v8Zh9QVLXwFm4zFOAxryVKumuvPVECTbZdPLYw==
+
+bootstrap5@^1.1.9:
+  version "1.1.9"
+  resolved "https://registry.yarnpkg.com/bootstrap5/-/bootstrap5-1.1.9.tgz#a4b6c7fa9d03fb55f931cee550973e38680f42d7"
+  integrity sha512-XZSujP1vsslV7iUgPHRLobe+rL7pYUvZaK2Erk0r45m00cQZz/No3Ua7cenlCFLN+gOMEWYU+ipa8Ktzz79oVA==
+
 bootstrap@^5.3.0:
   version "5.3.0"
   resolved "https://registry.yarnpkg.com/bootstrap/-/bootstrap-5.3.0.tgz#0718a7cc29040ee8dbf1bd652b896f3436a87c29"

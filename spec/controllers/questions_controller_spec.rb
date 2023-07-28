@@ -243,9 +243,9 @@ RSpec.describe QuestionsController, type: :controller do
           expect(response).to have_http_status(:found)
         end
 
-        it 'redirects to root path' do
+        it 'redirects to index view' do
           data_request
-          expect(response).to redirect_to root_path
+          expect(response).to redirect_to questions_path
         end
       end
     end

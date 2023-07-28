@@ -9,6 +9,8 @@
     "@rails/ujs": "^6.0.0",
     "@rails/webpacker": "5.4.4",
     "bootstrap": "^5.3.0",
+    "bootstrap4": "^0.0.1-security",
+    "bootstrap5": "^1.1.9",
     "gist-embed": "^1.0.4",
     "jquery": "^3.7.0",
     "turbolinks": "^5.2.0",
