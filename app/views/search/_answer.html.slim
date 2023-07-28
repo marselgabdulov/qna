@@ -1,6 +1,6 @@
 li.list-group-item
   .secondary-info-answer.text-right
-    small #{resource.rating} votes
+    small #{resource.raiting} votes
     br
     small #{pluralize(resource.comments.count, 'comment')}
   = link_to "A: #{resource.question.title}", question_path(resource.question)

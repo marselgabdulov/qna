@@ -10,14 +10,14 @@ $(document).on('turbolinks:load', function () {
     var answer = e.detail[0];
     $(`#answer-${answer.id} .voting-buttons`).hide();
     $(`#answer-${answer.id} .revote`).show();
-    $(`#answer-${answer.id} .rating`).html(answer.rating);
+    $(`#answer-${answer.id} .raiting`).html(answer.raiting);
   });
 
   $('.answers').on('ajax:success', '.revote', function (e) {
     var answer = e.detail[0];
     $(`#answer-${answer.id} .voting-buttons`).show();
     $(`#answer-${answer.id} .revote`).hide();
-    $(`#answer-${answer.id} .rating`).html(answer.rating);
+    $(`#answer-${answer.id} .raiting`).html(answer.raiting);
   });
 
   $('form.new-answer')

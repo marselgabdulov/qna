@@ -1,7 +1,7 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, except: %i(index show)
   before_action :load_question, only: %i(show edit update destroy)
-  after_action :publish_question, only: [:create]
+  after_action  :publish_question, only: [:create]
 
   include Voted
 

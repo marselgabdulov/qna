@@ -109,7 +109,7 @@ Doorkeeper.configure do
   #   context.client.additional_settings.implicit_oauth_expiration
   # end
 
-  # Use a custom class for generating the access token.
+  # Use a custom class for generaiting the access token.
   # See https://doorkeeper.gitbook.io/guides/configuration/other-configurations#custom-access-token-generator
   #
   # access_token_generator '::Doorkeeper::JWT'

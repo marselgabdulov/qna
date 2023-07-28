@@ -12,8 +12,8 @@ shared_examples_for 'voted' do
           expect { request_data }.to change(votable.votes, :count).by(1)
         end
 
-        it 'renders json response with votable id and rating' do
-          expected = { id: votable.id, rating: votable.rating + 1 }.to_json
+        it 'renders json response with votable id and raiting' do
+          expected = { id: votable.id, raiting: votable.raiting + 1 }.to_json
 
           request_data
           expect(response.body).to eq expected
@@ -46,8 +46,8 @@ shared_examples_for 'voted' do
           expect { request_data }.to change(votable.votes, :count).by(1)
         end
 
-        it 'renders json response with votable id and rating' do
-          expected = { id: votable.id, rating: votable.rating - 1 }.to_json
+        it 'renders json response with votable id and raiting' do
+          expected = { id: votable.id, raiting: votable.raiting - 1 }.to_json
 
           request_data
           expect(response.body).to eq expected
@@ -82,10 +82,10 @@ shared_examples_for 'voted' do
           expect { request_data }.to change(votable.votes, :count).by(-1)
         end
 
-        it 'renders json response with votable id and rating' do
+        it 'renders json response with votable id and raiting' do
           request_data
 
-          expected = { id: votable.id, rating: votable.rating }.to_json
+          expected = { id: votable.id, raiting: votable.raiting }.to_json
 
           expect(response.body).to eq expected
         end

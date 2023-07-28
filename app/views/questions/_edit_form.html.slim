@@ -1,16 +1,18 @@
-= form_with model: @question, class: 'form', local: false do |f|
-  = f.label :title, class: 'form-label'
-  = f.text_field :title, class: 'form-control'
-  = f.label :body, class: 'form-label'
-  = f.text_area :body, class: 'form-control'
-  = f.label :files, class: 'form-label'
-  = f.file_field :files, class: 'form-control', type: 'file', multiple: true, direct_upload: true
+.card
+  .card-body
+    = form_with model: @question, class: 'form', local: false do |f|
+      = f.label :title, class: 'form-label'
+      = f.text_field :title, class: 'form-control'
+      = f.label :body, class: 'form-label'
+      = f.text_area :body, class: 'form-control'
+      = f.label :files, class: 'form-label'
+      = f.file_field :files, class: 'form-control', type: 'file', multiple: true, direct_upload: true
 
-  h3 Links:
-  #edit-question-links
-    = f.fields_for :links do |link|
-      = render 'link_fields', f: link
-    .links
-      = link_to_add_association 'add link', f, :links
+      h3 Links:
+      #edit-question-links
+        = f.fields_for :links do |link|
+          = render 'link_fields', f: link
+        .links
+          = link_to_add_association 'add link', f, :links
 
-  = f.submit 'Save', class: 'btn btn-primary'
+      = f.submit 'Save', class: 'btn btn-primary'

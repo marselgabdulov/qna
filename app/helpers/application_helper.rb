@@ -18,4 +18,8 @@ module ApplicationHelper
   def creation_time(resource)
     resource.created_at.to_s(:short)
   end
+
+  def time_ago(resourse_created_at)
+    "#{distance_of_time_in_words(Time.now, resourse_created_at)} ago"
+  end
 end

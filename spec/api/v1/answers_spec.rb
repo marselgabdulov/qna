@@ -37,7 +37,7 @@ describe 'Questions API', type: :request do
       end
 
       it 'returns all public fields' do
-        %w[id user_id body best rating created_at updated_at].each do |attr|
+        %w[id user_id body best raiting created_at updated_at].each do |attr|
           expect(answer_json[attr]).to eq answer.send(attr).as_json
         end
       end
@@ -70,7 +70,7 @@ describe 'Questions API', type: :request do
       it_behaves_like 'Status Successful'
 
       it 'returns all public fields' do
-        %w[id user_id body best rating created_at updated_at].each do |attr|
+        %w[id user_id body best raiting created_at updated_at].each do |attr|
           expect(answer_json[attr]).to eq answer.send(attr).as_json
         end
       end

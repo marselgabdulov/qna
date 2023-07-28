@@ -1,5 +1,5 @@
 class AnswersSerializer < ActiveModel::Serializer
-  attributes :id, :user_id, :body, :best, :rating, :created_at, :updated_at, :short_body
+  attributes :id, :user_id, :body, :best, :raiting, :created_at, :updated_at, :short_body
 
   belongs_to :user
   belongs_to :question
