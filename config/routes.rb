@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   mount ActionCable.server => '/cable'
 
-  devise_for :users, controllers: { omniauth_callbacks: 'oauth_callbacks' }
+  devise_for :users, controllers: { omniauth_callbacks: 'oauth_callbacks', registrations: 'registrations' }
   devise_scope :user do
     get '/users/sign_out' => 'devise/sessions#destroy'
   end
