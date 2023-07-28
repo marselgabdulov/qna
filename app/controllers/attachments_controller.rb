@@ -1,7 +1,15 @@
 class AttachmentsController < ApplicationController
+  before_action :authenticate_user!
+  before_action :set_attachment, only: :destroy
+
   def destroy
-    attachment = ActiveStorage::Attachment.find(params[:id])
     authorize! :destroy, @attachment
-    attachment.purge
+    @attachment.purge
+  end
+
+  private
+
+  def set_attachment
+    @attachment = ActiveStorage::Attachment.find(params[:id])
   end
 end
