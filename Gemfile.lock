@@ -84,7 +84,6 @@ GEM
     aws-sigv4 (1.6.0)
       aws-eventstream (~> 1, >= 1.0.2)
     bcrypt (3.1.19)
-    bcrypt (3.1.19-java)
     bindex (0.8.1)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
@@ -115,7 +114,6 @@ GEM
       database_cleaner-core (~> 2.0.0)
     database_cleaner-core (2.0.1)
     date (3.3.3)
-    date (3.3.3-java)
     devise (4.9.2)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -136,9 +134,6 @@ GEM
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
     ffi (1.15.5)
-    ffi (1.15.5-java)
-    ffi (1.15.5-x64-mingw32)
-    ffi (1.15.5-x86-mingw32)
     globalid (1.1.0)
       activesupport (>= 5.0)
     gon (6.4.0)
@@ -178,10 +173,8 @@ GEM
     method_source (1.0.0)
     middleware (0.1.0)
     mini_mime (1.1.2)
-    mini_portile2 (2.8.4)
     minitest (5.19.0)
     msgpack (1.7.2)
-    msgpack (1.7.2-java)
     multi_json (1.15.0)
     multi_xml (0.6.0)
     mustermann (3.0.0)
@@ -197,15 +190,7 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.9)
-    nio4r (2.5.9-java)
-    nokogiri (1.15.3)
-      mini_portile2 (~> 2.8.2)
-      racc (~> 1.4)
-    nokogiri (1.15.3-java)
-      racc (~> 1.4)
-    nokogiri (1.15.3-x64-mingw32)
-      racc (~> 1.4)
-    nokogiri (1.15.3-x86-mingw32)
+    nokogiri (1.15.3-arm64-darwin)
       racc (~> 1.4)
     oauth2 (2.0.9)
       faraday (>= 0.17.3, < 3.0)
@@ -232,15 +217,10 @@ GEM
       omniauth-oauth2 (>= 1.5, <= 1.8.0)
     orm_adapter (0.5.0)
     pg (1.5.3)
-    pg (1.5.3-x64-mingw32)
-    pg (1.5.3-x86-mingw32)
     public_suffix (5.0.3)
     puma (5.6.6)
       nio4r (~> 2.0)
-    puma (5.6.6-java)
-      nio4r (~> 2.0)
     racc (1.7.1)
-    racc (1.7.1-java)
     rack (2.2.7)
     rack-mini-profiler (2.3.4)
       rack (>= 1.2.0)
@@ -320,8 +300,6 @@ GEM
       sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.4.0)
       ffi (~> 1.9)
-    sassc (2.4.0-x64-mingw32)
-      ffi (~> 1.9)
     sassc-rails (2.1.2)
       railties (>= 4.0.0)
       sassc (>= 2.0)
@@ -379,8 +357,6 @@ GEM
     turbolinks-source (5.2.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    tzinfo-data (1.2023.3)
-      tzinfo (>= 1.0.0)
     validate_url (1.0.15)
       activemodel (>= 3.0.0)
       public_suffix
@@ -404,8 +380,6 @@ GEM
     websocket (1.2.9)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
-    websocket-driver (0.7.6-java)
-      websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     whenever (1.0.0)
       chronic (>= 0.6.3)
@@ -417,11 +391,7 @@ GEM
     zeitwerk (2.6.9)
 
 PLATFORMS
-  java
   ruby
-  x64-mingw32
-  x86-mingw32
-  x86-mswin32
 
 DEPENDENCIES
   active_model_serializers (~> 0.10)
