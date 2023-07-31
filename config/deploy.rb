@@ -40,3 +40,5 @@ append :linked_dirs, "log", "tmp/pids", "tmp/cache", "tmp/sockets", "tmp/webpack
 # set :ssh_options, verify_host_key: :secure
 
 set :pty, false
+
+after 'deploy:publishing', 'unicorn:restart'
