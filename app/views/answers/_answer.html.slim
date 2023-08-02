@@ -1,62 +1,63 @@
-div[class="card" id="answer-#{answer.id}"]
-  .card-body
-    = answer.body
-    p.text-secondary
-      =time_ago(answer.created_at)
-      | &nbsp;
-      | by
-      | &nbsp;
-      =answer.user.email
-  .answer-files
-    - if answer.files.attached?
-        | Files:
-        = render partial: 'attachments/attachment', collection: answer.files
-
-  - if answer.links.any?
-    .links
-      p Links:
-      div.answer-links
-        - answer.links.each do |link|
-          = render 'links/link', link: link
-
-  .card
+- cache answer do
+  div[class="card" id="answer-#{answer.id}"]
     .card-body
-      div id="answer-#{answer.id}-comments"
-        p="Comments: #{answer.comments.count}"
-        - if answer.comments.present?
-          = render answer.comments.order(:created_at)
-        - if user_signed_in?
-          = render 'comments/form', commentable: answer, local: Comment.new
-          .answer-add-comment-link
-            p= link_to 'add comment', '#', class: 'add-comment-link text-secondary',
-                                              data: { commentable_type: answer.class.name.downcase,
-                                                      commentable_id: answer.id }
+      = answer.body
+      p.text-secondary
+        =time_ago(answer.created_at)
+        | &nbsp;
+        | by
+        | &nbsp;
+        =answer.user.email
+    .answer-files
+      - if answer.files.attached?
+          | Files:
+          = render partial: 'attachments/attachment', collection: answer.files
 
-  .card
-    .card-body
-      p.inline-container
-        div.inline-container
-          | Answer raiting:
-          | &nbsp;
-          .raiting
-            = answer.raiting
-          - if current_user != answer.question.user
-            div[class="voting-buttons #{hide_button_for(answer)} inline-container"]
-              - if can?(:vote_up, answer)
-                = link_to 'Vote Up', vote_up_answer_path(answer), method: :post, remote: true, class: 'btn btn-outline-success my-2 my-sm-0'
-              - if can?(:vote_down, answer)
-                = link_to 'Vote Down', vote_down_answer_path(answer), method: :post, remote: true, class: 'btn btn-outline-success my-2 my-sm-0'
-            - if can?(:revote, answer)
-              = link_to 'Revote', revote_answer_path(answer), method: :post, remote: true, class: "revote #{show_button_for(answer)} btn btn-outline-success my-2 my-sm-0"
+    - if answer.links.any?
+      .links
+        p Links:
+        div.answer-links
+          - answer.links.each do |link|
+            = render 'links/link', link: link
 
-  .card-footer
-    .inline-container
-      - if can?(:update, answer)
-        = link_to 'Edit Answer', '#', class: 'edit-answer-link link-secondary', data: { answer_id: answer.id }
-      - if can?(:destroy, answer)
-        = link_to 'Delete Answer', answer, class: 'remove-answer-link link-danger', method: :delete, remote: true
-      - if can?(:mark_as_best, answer)
-        = link_to 'Best Answer', mark_as_best_answer_path(answer), method: :post, data: { answer_id: answer.id }, remote: true, class: 'link-success'
+    .card
+      .card-body
+        div id="answer-#{answer.id}-comments"
+          p="Comments: #{answer.comments.count}"
+          - if answer.comments.present?
+            = render answer.comments.order(:created_at)
+          - if user_signed_in?
+            = render 'comments/form', commentable: answer, local: Comment.new
+            .answer-add-comment-link
+              p= link_to 'add comment', '#', class: 'add-comment-link text-secondary',
+                                                data: { commentable_type: answer.class.name.downcase,
+                                                        commentable_id: answer.id }
+
+    .card
+      .card-body
+        p.inline-container
+          div.inline-container
+            | Answer raiting:
+            | &nbsp;
+            .raiting
+              = answer.raiting
+            - if current_user != answer.question.user
+              div[class="voting-buttons #{hide_button_for(answer)} inline-container"]
+                - if can?(:vote_up, answer)
+                  = link_to 'Vote Up', vote_up_answer_path(answer), method: :post, remote: true, class: 'btn btn-outline-success my-2 my-sm-0'
+                - if can?(:vote_down, answer)
+                  = link_to 'Vote Down', vote_down_answer_path(answer), method: :post, remote: true, class: 'btn btn-outline-success my-2 my-sm-0'
+              - if can?(:revote, answer)
+                = link_to 'Revote', revote_answer_path(answer), method: :post, remote: true, class: "revote #{show_button_for(answer)} btn btn-outline-success my-2 my-sm-0"
+
+    .card-footer
+      .inline-container
+        - if can?(:update, answer)
+          = link_to 'Edit Answer', '#', class: 'edit-answer-link link-secondary', data: { answer_id: answer.id }
+        - if can?(:destroy, answer)
+          = link_to 'Delete Answer', answer, class: 'remove-answer-link link-danger', method: :delete, remote: true
+        - if can?(:mark_as_best, answer)
+          = link_to 'Best Answer', mark_as_best_answer_path(answer), method: :post, data: { answer_id: answer.id }, remote: true, class: 'link-success'
 
 = form_with model: answer, class: 'form hidden', html: { id: "edit-answer-#{answer.id}"  }, local: false do |f|
   = f.label :body, 'Your Answer', class: 'form-label'
