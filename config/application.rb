@@ -31,6 +31,8 @@ module Qna
                        controller_specs: true
     end
 
+    config.cache_store = :redis_store, 'redis://localhost:6379/0/cache', { expires_in: 90.minutes }
+
     # initializer(:remove_action_mailbox_and_activestorage_routes, after: :add_routing_paths) { |app|
     #   app.routes_reloader.paths.delete_if {|path| path =~ /activestorage/}
     #   app.routes_reloader.paths.delete_if {|path| path =~ /actionmailbox/ }

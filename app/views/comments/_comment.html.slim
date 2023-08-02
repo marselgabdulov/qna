@@ -1,11 +1,12 @@
-div[id="comment-#{comment.id}" class='comment']
-  .card.border-light
-    .card-body
-      = comment.body
-      br
-      small.text-secondary
-        =time_ago(comment.created_at)
-        | &nbsp;
-        | by
-        | &nbsp;
-        = comment.user.email
+- cache comment do
+  div[id="comment-#{comment.id}" class='comment']
+    .card.border-light
+      .card-body
+        = comment.body
+        br
+        small.text-secondary
+          =time_ago(comment.created_at)
+          | &nbsp;
+          | by
+          | &nbsp;
+          = comment.user.email

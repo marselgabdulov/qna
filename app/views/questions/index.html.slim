@@ -1,9 +1,10 @@
 h1
   | Question's list
-.questions-list
-  - @questions.each do |q|
-    p
-      = link_to q.title, q
+- cache collection_cache_key_for :question do
+  .questions-list
+    - @questions.each do |q|
+      p
+        = link_to q.title, q
 hr
 p
   = link_to 'Ask question', new_question_path
